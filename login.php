@@ -12,7 +12,7 @@ if( isset($_POST["login"]) ){
     $password = $_POST["password"];
     $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
     if (mysqli_num_rows($result) === 1 ){
-      while ($row = mysqli_fetch_assoc($result)){    
+      while ($row = mysqli_fetch_assoc($result)){ 
         if( password_verify($password, $row["password"]) ){
          $_SESSION["id"] = $row["id"];
          $_SESSION["name"] = $row["name"];
@@ -22,14 +22,7 @@ if( isset($_POST["login"]) ){
          $_SESSION['username'] = $row['username'];
          $_SESSION['country'] = $row['country'];
          $_SESSION['age'] = $row['age'];
-         $_SESSION["login"] = true;
-
-         if(isset($_POST['remember'])){
-
-            setcookie('APIID',$_row['id'],time()+60);
-            setcookie('key',hash('sha256', $row['username']), time()+60); 
-         }
-         
+         $_SESSION["login"] = true;        
             header("Location: index.php");
             exit;
          } 

@@ -11,15 +11,14 @@ $_SESSION['image'];
 $_SESSION["name"];
 $id = ($_GET["id"]);
 $data = query("SELECT id, name, username, position, country, age, image FROM users WHERE id = $id")[0];
-if(isset($_POST["submit"])){
-    if(updateProfile($_POST) > 0 ){
-        echo "  <script>
-                    alert('Your articel has been saved!')document.location.href = 'index.php'
-                </script>";
-    } else {
-        echo "<script>alert('erorr!') document.location.href = 'index.php'</script>";
-    }
-}
+
+  if(isset($_POST["submit"])){
+      if(updateProfile($_POST) > 0 ){
+          echo "<a data-toggle='modal' data-target='#logoutModal'>";
+      } else {
+          echo "<script>alert('erorr!') document.location.href = 'index.php'</script>";
+      }
+  }
 
 ?>
 <!DOCTYPE html>
@@ -451,7 +450,9 @@ if(isset($_POST["submit"])){
                             <div class="form-group">
                               <label>Username</label><span style="color: red !important; display: inline; float: none;">*</span>      
                               <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $_SESSION['username']; ?>">
-                              
+                              <?php if($checkUsername) : ?>
+                              <p style="color: red; font-style: italic;">Username already taken !</p>
+                              <?php endif; ?>
                             </div>
                           </div>
                         </div>
@@ -778,7 +779,10 @@ if(isset($_POST["submit"])){
                           <div class="col">
                             <div class="form-group">
                               <label>Current Password</label>
-                              <input class="form-control" type="password" placeholder="••••••">
+                              <input class="form-control" name="password" type="password" placeholder="Current Password">
+                              <?php if($checkPass) : ?>
+                                  <p style="color: red; font-style: italic;">Incorect Password</p>  
+                              <?php endif; ?>
                             </div>
                           </div>
                         </div>
@@ -786,7 +790,7 @@ if(isset($_POST["submit"])){
                           <div class="col">
                             <div class="form-group">
                               <label>New Password</label>
-                              <input class="form-control" type="password" placeholder="••••••">
+                              <input class="form-control" type="password" placeholder="New Password" name="password1">
                             </div>
                           </div>
                         </div>
@@ -794,7 +798,19 @@ if(isset($_POST["submit"])){
                           <div class="col">
                             <div class="form-group">
                               <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                              <input class="form-control" type="password" placeholder="••••••"></div>
+                              <input class="form-control" type="password" placeholder="Confirm Password" name="password2"></div>
+                              <?php if($checkPassMatch) : ?>
+                              <p style="color: red; font-style: italic;">Password not match !</p>
+                              <?php endif; ?>
+                            <?php if($checkPass2) : ?>
+                              <p style="color: red; font-style: italic;">Minimum 5 characters and 1 uppercase</p>
+                              <?php endif; ?>
+                            <?php if($checkPass3) : ?>
+                              <p style="color: red; font-style: italic;">Minimum 1 uppercase</p>
+                              <?php endif; ?>
+                            <?php if($checkPass4) : ?>
+                              <p style="color: red; font-style: italic;">Minimum 5 characters</p>
+                              <?php endif; ?>
                           </div>
                         </div>
                       </div>
@@ -808,7 +824,7 @@ if(isset($_POST["submit"])){
                     </div>
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" name="submit" id="submit">Save Changes</button>
+                        <button class="btn btn-primary" type="submit" name="submit" id="submit">Save Changes</button>
                       </div>
                     </div>
                   </form>

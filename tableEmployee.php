@@ -5,10 +5,10 @@ if (!isset($_SESSION["login"])){
   exit;
 }
 require 'functions.php';
-$seasonId = $_SESSION["id"];
-$id = query("SELECT * FROM users where id = $seasonId"); 
 $image = $_SESSION['image'];
-$data = query("SELECT id, name, position, country, age FROM users");
+$seasonId = $_SESSION['id'];
+$data = query("SELECT * FROM users");
+$id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
 ?>
 <!DOCTYPE html>
@@ -39,6 +39,7 @@ $name = $_SESSION['name'];
 </head>
 
 <body id="page-top">
+
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -138,12 +139,13 @@ $name = $_SESSION['name'];
             </li>
 
             <!-- Nav Item - Charts -->
+            <?php foreach ($id as $id) : ?>
             <li class="nav-item">
-                <a class="nav-link" href="profileUpdate.php">
+                <a class="nav-link" href="profileUpdate.php?id=<?= $id["id"]; ?>">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
             </li>
-
+            
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="logout.php" data-toggle="modal" data-target="#logoutModal">
@@ -192,22 +194,14 @@ $name = $_SESSION['name'];
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="img/<?= $_SESSION['image']; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"] ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -218,7 +212,9 @@ $name = $_SESSION['name'];
                         </li>
 
                     </ul>
-
+                
+                    <?php endforeach; ?>
+                
                 </nav>
                 <!-- End of Topbar -->
 
@@ -230,7 +226,7 @@ $name = $_SESSION['name'];
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p>
-
+                           
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -279,9 +275,10 @@ $name = $_SESSION['name'];
                                             </a>
                                         </td>
                                         </tr>
-                                        <?php endforeach; ?>
+                                        <?php endforeach;?>
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>
@@ -332,6 +329,7 @@ $name = $_SESSION['name'];
             </div>
         </div>
     </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

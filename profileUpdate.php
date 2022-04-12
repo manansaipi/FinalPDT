@@ -16,7 +16,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
 
   if(isset($_POST["submit"])){
       if(updateProfile($_POST) > 0 ){
-          echo "<a data-toggle='modal' data-target='#logoutModal'>";
+          echo "<script>alert('Updae profile succes !');</script>";
       } else {
           echo "<script>alert('erorr!') document.location.href = 'index.php'</script>";
       }
@@ -215,6 +215,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout

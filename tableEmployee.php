@@ -267,10 +267,10 @@ $name = $_SESSION['name'];
                                             <a href="#" class="btn btn-info btn-circle btn-sm">
                                             <i class="fas fa-info-circle"></i>
                                             </a>
-                                            <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                                            <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">
                                             <span class="text">Edt</span>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-circle btn-sm">
+                                            <a href="deleteUser.php?id=<?= $data["id"];?>" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
                                             </a>
                                         </td>

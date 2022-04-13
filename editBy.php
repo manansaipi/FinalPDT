@@ -5,50 +5,56 @@ if (!isset($_SESSION["login"])){
   exit;
 }
 require 'functions.php';
-$position = $_SESSION["position"];
-$country = $_SESSION['country'];
-$seasonId = $_SESSION["id"];
-$_SESSION['image'];
-$_SESSION["name"];
-$id = ($_GET["id"]);
-$idUser = query("SELECT * FROM users where id = $seasonId"); 
-$data = query("SELECT id, name, username, position, country, age, image FROM users WHERE id = $id")[0];
+$image = $_SESSION['image'];
+$seasonId = $_SESSION['id'];
+$data = query("SELECT * FROM users");
+$id = query("SELECT * FROM users where id = $seasonId");
+$name = $_SESSION['name'];
 
-  if(isset($_POST["submit"])){
-      if(updateProfile($_POST) > 0 ){
-          echo "<script>alert('Updae profile succes !');document.location.href = 'index.php';</script>";
-      } else {
-          echo "<script>alert('erorr!'); document.location.href = 'index.php';</script>";
-      }
-  }
+$id2 = ($_GET["id"]);
 
+$data2 = query("SELECT * FROM users WHERE id = $id2")[0];
+    if(isset($_POST["submit"])){
+        if(updateProfile2($_POST) > 0 ){
+            echo "  <script>
+                        alert('Data has been saved !'); document.location.href = 'tableEmployee.php';
+                    </script>";
+
+        } else {
+            echo "<script>alert('erorr!') document.location.href = 'tableEmployee.php'</script>";
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Profile Setting</title>
+    <title>SB Admin 2 - Tables</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+    <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
-<?php foreach( $idUser as $id ) : ?>
+
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -82,18 +88,17 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">table :</h6>
-                        <?php if($position === "CEO") : ?>
-                        <a class="collapse-item" href="tableEmployee.php">Employee</a>
-                        <?php endif; ?>
+                        <h6 class="collapse-header">Table :</h6>
+                        <a class="collapse-item active" href="tableEmployee.php">Employee</a>
                         <a class="collapse-item" href="tableTicket.php">Ticket</a>
                     </div>
                 </div>
@@ -148,12 +153,13 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
             </li>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item active">
+            <?php foreach ($id as $id) : ?>
+            <li class="nav-item">
                 <a class="nav-link" href="profileUpdate.php?id=<?= $id["id"]; ?>">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
             </li>
-
+            
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="logout.php" data-toggle="modal" data-target="#logoutModal">
@@ -185,11 +191,6 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    
-
-                    <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -198,7 +199,8 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
-                           
+                        <!-- Nav Item - Alerts -->
+                       
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -206,12 +208,12 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
                                 <img class="img-profile rounded-circle"
-                                src="img/<?php echo $_SESSION["image"]; ?>">
+                                    src="img/<?= $_SESSION['image']; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"]; ?>">
+                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"] ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -224,11 +226,83 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                         </li>
 
                     </ul>
-
+                
+                    <?php endforeach; ?>
+                
                 </nav>
                 <!-- End of Topbar -->
 
-                <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                        For more information about DataTables, please visit the <a target="_blank"
+                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                           
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Country</th>
+                                            <th>Age</th>
+                                            <th style="text-align: center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Country</th>
+                                            <th>Age</th>
+                                            <th  style="text-align: center;">Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    <?php foreach( $data as $data ) : ?>
+                                        <tr >
+                                            <td><?= $data["id"]?></td>
+                                            <td><?= $data["name"]?></td>
+                                            <td><?= $data["position"]?></td>
+                                            <td><?= $data["country"]?></td>
+                                            <td><?= $data["age"]?></td>
+                                            <td style="text-align: center;">
+                                            <a href="#" class="btn btn-info btn-circle btn-sm">
+                                            <i class="fas fa-info-circle"></i>
+                                            </a>
+                                            <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">
+                                            <span class="text">Edt</span>
+                                            </a>
+                                            <a href="deleteUser.php?id=<?= $data["id"];?>" class="btn btn-danger btn-circle btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
 <div class="row flex-lg-nowrap">
   <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
@@ -242,7 +316,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
       </div>
     </div>
   </div>
-
+  
   <div class="col">
     <div class="row">
       <div class="col mb-3">
@@ -253,27 +327,26 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                 <div class="col-12 col-sm-auto mb-3">
                   <div class="mx-auto" style="width: 140px;">
                     <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                      <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">
-                      <img src="img/<?php echo $_SESSION["image"]; ?>" width="140" height="140">
-                      </span>
+                    
+                      <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;"></span>
+                      <img src="img/<?php echo $data2["image"]; ?>" width="140" height="140">
                     </div>
                   </div>
                 </div>
                 <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                   <div class="text-center text-sm-left mb-2 mb-sm-0">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $_SESSION['name']; ?></h4>
-                    <p class="mb-0">@<?php echo $_SESSION['username']; ?></p>
-                    <div class="text-muted"><small></small>
-                  </div>
-                  <form class="form" action="" method="post" enctype="multipart/form-data">
-                    <div class="mt-2">                     
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $data2["name"]; ?></h4>
+                    <p class="mb-0">@<?php echo $data2["username"];?></p>
+                    <div class="text-muted"><small></small></div>
+                    <div class="mt-2">     
+                    <form class="form" action="" method="post" enctype="multipart/form-data">                
                    <input class="btn btn-primary" type="file" name="image"/>
                         <i class="fa fa-fw fa-camera"></i>
                         <span>Change Photo</span>               
                     </div>
                   </div>
                   <div class="text-center text-sm-right">
-                    <span class="badge badge-secondary"><?php echo $_SESSION['position']; ?></span>
+                    <span class="badge badge-secondary"><?php echo $data2["position"]; ?></span>
                     <div class="text-muted"><small></small></div>
                   </div>
                 </div>
@@ -283,45 +356,43 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
               </ul>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
-                 
+               
                     <div class="row">
                       <div class="col">
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>Full Name</label><span style="color: red !important; display: inline; float: none;">*</span>
-                              <input class="form-control" type="text" name="name" placeholder="Full Name" value="<?php echo $_SESSION['name'] ?>">
-                              
+                              <label>Full Name</label>
+                              <input class="form-control" type="text" name="name" placeholder="Full Name" value="<?php echo$data2["name"] ?>">
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group">
-                              <label>Username</label><span style="color: red !important; display: inline; float: none;">*</span>      
-                              <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $_SESSION['username']; ?>">
+                              <label>Username</label>
+                              <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $data2["username"]; ?>">
                               <?php if($checkUsername) : ?>
                               <p style="color: red; font-style: italic;">Username already taken !</p>
                               <?php endif; ?>
-                              <input type="hidden" name="id" value="<?= $data["id"] ?>">
-                              <input type="hidden" name="oldImage" id="oldImage" value="<?= $data["image"] ?>">
-                              <input type="hidden" name="position" id="position" value="<?= $data["position"] ?>">
+                              <input type="hidden" name="id" value="<?= $data2["id"] ?>">
+                              <input type="hidden" name="oldImage" id="oldImage" value="<?= $data2["image"] ?>">
+                              <input type="hidden" name="username2" id="oldImage" value="<?= $data2["username"] ?>">
+                              <input type="hidden" name="position" id="position" value="<?= $data2["position"] ?>">
                             </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <?php if($position === "CEO") : ?>
-                              <label for="position">Position :</label>
+                        <label for="position">Position :</label>
                                 <select name="position" id="position" >
+                                    <option value="<?php echo $data2["position"]; ?>"><?php echo $data2["position"]; ?></option>
                                     <option value="CEO">CEO</option>
                                     <option value="IT Employee">IT Employee</option>
                                     <option value="Employee">Employee</option>
                                 </select>
-                                <?php endif; ?>
-                                <div class="form-group">
-                                <label for="country">Country</label><span style="color: red !important; display: inline; float: none;">*</span>      
-        <select id="country" name="country" class="form-control" >
-            <option value="<?php echo $_SESSION['country']; ?>"><?php echo $_SESSION['country']; ?></option>
+                        <div class="row">
+                          <div class="col mb-3">
+                            <div class="form-group">
+                            <label for="country">Country</label><span style="color: red !important; display: inline; float: none;"></span> 
+                            <select id="country" name="country" class="form-control" >
+            <option value="<?php echo $data2['country']; ?>"><?php echo $data2['country']; ?></option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Åland Islands">Åland Islands</option>
             <option value="Albania">Albania</option>
@@ -569,7 +640,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
         </select>
         <label for="age">Age</label><span style="color: red !important; display: inline; float: none;">*</span>      
         <select id="age" name="age" class="form-control" >
-            <option value="<?php echo $_SESSION['age']; ?>"><?php echo $_SESSION['age']; ?></option>
+            <option value="<?php echo $data2['age']; ?>"><?php echo $data2['age']; ?></option>
             <option value="10">10</option>
             <option value="11">11</option>
             <option value="12">12</option>
@@ -595,90 +666,68 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
             <option value="34">34</option>
             <option value="35">35</option>
             </select>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label >Position :</label>
-                              <input class="form-control" type="text" placeholder="user@example.com">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label >Position :</label>
-                              <input class="form-control" type="text" placeholder="user@example.com">
-                            </div>
-                          </div>
-                        </div> -->
-                        <div class="row">
-                          <div class="col mb-3">
-                            <div class="form-group">
+                              
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    
                     <div class="row">
                       <div class="col-12 col-sm-6 mb-3">
-                        <div class="mb-2"><b>Change Password</b></div>
+                        <div class="mb-2"><b></b></div>
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>Current Password</label>
-                              <input class="form-control" name="password" type="password" placeholder="Current Password">
-                              <?php if($checkPass) : ?>
-                                  <p style="color: red; font-style: italic;">Incorect Password</p>  
-                              <?php endif; ?>
+                              
+                              <input  type="hidden" class="form-control" type="password" placeholder="••••••">
                             </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>New Password</label>
-                              <input class="form-control" type="password" placeholder="New Password" name="password1">
+                              <label></label>
+                              <input type="hidden" class="form-control" type="password" placeholder="••••••">
                             </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                              <input class="form-control" type="password" placeholder="Confirm Password" name="password2"></div>
-                              <?php if($checkPassMatch) : ?>
-                              <p style="color: red; font-style: italic;">Password not match !</p>
-                              <?php endif; ?>
-                            <?php if($checkPass2) : ?>
-                              <p style="color: red; font-style: italic;">Minimum 5 characters and 1 uppercase</p>
-                              <?php endif; ?>
-                            <?php if($checkPass3) : ?>
-                              <p style="color: red; font-style: italic;">Minimum 1 uppercase</p>
-                              <?php endif; ?>
-                            <?php if($checkPass4) : ?>
-                              <p style="color: red; font-style: italic;">Minimum 5 characters</p>
-                              <?php endif; ?>
+                              <label> <span class="d-none d-xl-inline"></span></label>
+                              <input type="hidden" class="form-control" type="password" placeholder="••••••"></div>
                           </div>
                         </div>
                       </div>
                       <div class="col-12 col-sm-5 offset-sm-1 mb-3">
                         <div class="mb-2"><b></b></div>
                         <div class="row">
-                          <div class="col">                          
+                          <div class="col">
+                            <label></label>
+                            <div class="custom-controls-stacked px-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="hidden" type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                
+                              </div>
+                              <div class="custom-control custom-checkbox">
+                                <input type="hidden" type="checkbox" class="custom-control-input" id="notifications-news" checked="">
+                                
+                              </div>
+                              <div class="custom-control custom-checkbox">
+                                <input type="hidden" type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                                
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit" name="submit" id="submit">Save Changes</button>
+                        <button class="btn btn-primary" name="submit" type="submit">Save Changes</button>
                       </div>
                     </div>
-                    <?php endforeach; ?>
                   </form>
 
                 </div>
@@ -692,7 +741,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
         <div class="card mb-3">
           <div class="card-body">
             <div class="px-xl-3">
-              <button class="btn btn-block btn-secondary" data-toggle="modal" data-target="#logoutModal">
+              <button class="btn btn-block btn-secondary">
                 <i class="fa fa-sign-out"></i>
                 <span>Logout</span>
               </button>
@@ -754,6 +803,41 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
             </div>
         </div>
     </div>
+            <!-- Footer -->
+          
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -764,14 +848,12 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-    <script src="js/demo/chart-bar-demo.js"></script>
+    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 

@@ -22,7 +22,7 @@ function register($data){
     $country = mysqli_real_escape_string($conn, $data["country"]);
     $age = mysqli_real_escape_string($conn, $data["age"]);
     $image = mysqli_real_escape_string($conn, $data["image"]);
-    //upload profile im1g
+
     $result = mysqli_query($conn, "SELECT username FROM users WHERE username = '$username'");
     if(mysqli_fetch_assoc($result)){
         $checkUsername = true;
@@ -121,9 +121,9 @@ function updateProfile($data){
     $name = htmlspecialchars($data["name"]);
     $username = strtolower(stripslashes($data["username"]));
     $position = ($data["position"]);
-    $country = htmlspecialchars($data["country"]);
-    $age = htmlspecialchars($data["age"]);
-    $oldImage = htmlspecialchars($data["oldImage"]);
+    $country = ($data["country"]);
+    $age = ($data["age"]);
+    $oldImage = ($data["oldImage"]);
     $password = $_POST["password"];  
     $password1 = mysqli_real_escape_string($conn, $data["password1"]);
     $password2 = mysqli_real_escape_string($conn, $data["password2"]);
@@ -180,9 +180,55 @@ function updateProfile($data){
         }
     }
 }
-function delete($id){
+function updateProfile2($data){
     global $conn;
-    mysqli_query($conn, "DELETE FROM articel WHERE id = $id");
+    global $checkUsername;
+    global $checkPass;
+    global $checkPassMatch;
+    global $checkPass2;
+    global $checkPass3;
+    global $checkPass4;
+    $sessionUsername = $_SESSION['username'];
+    $id = htmlspecialchars($data["id"]);
+    $name = htmlspecialchars($data["name"]);
+    $username = strtolower(stripslashes($data["username"]));
+    $username2 = strtolower(stripslashes($data["username2"]));
+    $position = ($data["position"]);
+    $country = ($data["country"]);
+    $age = ($data["age"]);
+    $oldImage = ($data["oldImage"]);
+    if($_FILES['image']['error'] === 4){
+        $image = $oldImage;
+    } else {
+        $image = upload();
+    }
+    if (!$image){
+        return false;
+    }
+    if($username != $username2){
+    $result = mysqli_query($conn, "SELECT username FROM users WHERE username = '$username'");
+    if(mysqli_fetch_assoc($result)){
+        $checkUsername = true;
+        return false;
+        }
+    }
+    $query = "UPDATE users
+            SET
+            id = '$id',
+            name = '$name',
+            username = '$username',
+            image = '$image',
+            position = '$position',
+            country = '$country', 
+            age = '$age'   
+            WHERE id = $id";
+    mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn); 
+    
+}
+function deleteUser($id){
+    global $conn;
+    mysqli_query($conn, "DELETE FROM users WHERE id = $id");
     return mysqli_affected_rows($conn);
 }
 function edit($data){

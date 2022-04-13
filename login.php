@@ -22,6 +22,10 @@ if( isset($_POST["login"]) ){
          $_SESSION['username'] = $row['username'];
          $_SESSION['country'] = $row['country'];
          $_SESSION['age'] = $row['age'];
+         $_SESSION['bio'] = $row['bio'];
+         $_SESSION['birthday'] = $row['birthday'];
+         $_SESSION['instagram'] = $row['instagram'];
+         $_SESSION['github'] = $row['github'];
          $_SESSION["login"] = true;        
             header("Location: index.php");
             exit;

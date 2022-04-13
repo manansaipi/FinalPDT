@@ -16,10 +16,14 @@ function register($data){
     global $checkPass4;
     $name = $data["name"];
     $username = strtolower(stripslashes($data["username"]));
+    $bio = strtolower(stripslashes($data["bio"]));
     $password = mysqli_real_escape_string($conn, $data["password"]);
     $password2 = mysqli_real_escape_string($conn, $data["password2"]);
     $position = mysqli_real_escape_string($conn, $data["position"]);
+    $instagram = mysqli_real_escape_string($conn, $data["instagram"]);
+    $github = mysqli_real_escape_string($conn, $data["github"]);
     $country = mysqli_real_escape_string($conn, $data["country"]);
+    $birthday = mysqli_real_escape_string($conn, $data["birthday"]);
     $age = mysqli_real_escape_string($conn, $data["age"]);
     $image = mysqli_real_escape_string($conn, $data["image"]);
 
@@ -43,7 +47,7 @@ function register($data){
         return false;
     } else {
     $password = password_hash($password, PASSWORD_DEFAULT);
-    mysqli_query($conn, "INSERT INTO users VALUES('','$name', '$username', '$password', '$position','$country', '$age', '$image')");
+    mysqli_query($conn, "INSERT INTO users VALUES('','$name', '$username','$bio', '$password', '$position','$instagram','$github','$country','$birthday', '$age', '$image')");
     return mysqli_affected_rows($conn);
     }   
     
@@ -120,6 +124,10 @@ function updateProfile($data){
     $id = htmlspecialchars($data["id"]);
     $name = htmlspecialchars($data["name"]);
     $username = strtolower(stripslashes($data["username"]));
+    $instagram = stripslashes(strtolower(htmlspecialchars($data["instagram"])));
+    $github = stripslashes(strtolower(htmlspecialchars($data["github"])));
+    $bio = htmlspecialchars($data["bio"]);
+    $birthday = ($data["birthday"]);
     $position = ($data["position"]);
     $country = ($data["country"]);
     $age = ($data["age"]);
@@ -165,9 +173,13 @@ function updateProfile($data){
             id = '$id',
             name = '$name',
             username = '$username',
+            bio = '$bio',
             password = '$password1',
             image = '$image',
             position = '$position',
+            instagram = '$instagram',
+            github = '$github',
+            birthday = '$birthday',
             country = '$country', 
             age = '$age'   
             WHERE id = $id";
@@ -180,6 +192,11 @@ function updateProfile($data){
         }
     }
 }
+function clean($string) {
+    $string = str_replace(' ', '-', $string); 
+ 
+    return preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+ }
 function updateProfile2($data){
     global $conn;
     global $checkUsername;

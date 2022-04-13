@@ -278,7 +278,7 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                                             <td><?= $data["country"]?></td>
                                             <td><?= $data["age"]?></td>
                                             <td style="text-align: center;">
-                                            <a href="#" class="btn btn-info btn-circle btn-sm">
+                                            <a href="detailUser.php?id=<?php echo $data["id"]; ?>" class="btn btn-info btn-circle btn-sm">
                                             <i class="fas fa-info-circle"></i>
                                             </a>
                                             <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">

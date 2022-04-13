@@ -289,15 +289,14 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>Full Name</label><span style="color: red !important; display: inline; float: none;">*</span>
-                              <input class="form-control" type="text" name="name" placeholder="Full Name" value="<?php echo $_SESSION['name'] ?>">
-                              
-                            </div>
+                              <label>Full Name</label>
+                              <input class="form-control" type="text" name="name" placeholder="Full Name" value="<?php echo $_SESSION['name'] ?>">                        
+                           </div>         
                           </div>
                           <div class="col">
                             <div class="form-group">
-                              <label>Username</label><span style="color: red !important; display: inline; float: none;">*</span>      
-                              <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $_SESSION['username']; ?>">
+                              <label>Username</label>      
+                              <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $_SESSION['username']; ?>">                            
                               <?php if($checkUsername) : ?>
                               <p style="color: red; font-style: italic;">Username already taken !</p>
                               <?php endif; ?>
@@ -307,6 +306,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                             </div>
                           </div>
                         </div>
+                        
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
@@ -319,7 +319,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                                 </select>
                                 <?php endif; ?>
                                 <div class="form-group">
-                                <label for="country">Country</label><span style="color: red !important; display: inline; float: none;">*</span>      
+                                <label for="country">Country</label>      
         <select id="country" name="country" class="form-control" >
             <option value="<?php echo $_SESSION['country']; ?>"><?php echo $_SESSION['country']; ?></option>
             <option value="Afghanistan">Afghanistan</option>
@@ -567,7 +567,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
             <option value="Zambia">Zambia</option>
             <option value="Zimbabwe">Zimbabwe</option>
         </select>
-        <label for="age">Age</label><span style="color: red !important; display: inline; float: none;">*</span>      
+        <label for="age">Age</label>      
         <select id="age" name="age" class="form-control" >
             <option value="<?php echo $_SESSION['age']; ?>"><?php echo $_SESSION['age']; ?></option>
             <option value="10">10</option>
@@ -599,22 +599,36 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                             </div>
                           </div>
                         </div>
-                        <!-- <div class="row">
+                        <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label >Position :</label>
-                              <input class="form-control" type="text" placeholder="user@example.com">
+                              <label>Instagram</label>
+                              <input class="form-control" type="text" name="instagram" placeholder="@instagram" value="<?php echo $_SESSION['instagram'] ?>">                        
+                           </div>         
+                          </div>
+                          <div class="col">
+                            <div class="form-group">
+                              <label>GitHub</label>      
+                              <input class="form-control" type="text" name="github" placeholder="@github" value="<?php echo $_SESSION['github']; ?>">                            
                             </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label >Position :</label>
-                              <input class="form-control" type="text" placeholder="user@example.com">
+                            <label for="birthday">Birthday:</label>
+                            <input type="date" id="birthday" value="<?php echo $_SESSION['birthday']; ?>" name="birthday">
                             </div>
                           </div>
-                        </div> -->
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>About</label>
+                              <textarea class="form-control" rows="5" name="bio" placeholder="My Bio"><?php echo $_SESSION['bio']; ?></textarea>
+                            </div>
+                          </div>
+                        </div>
                         <div class="row">
                           <div class="col mb-3">
                             <div class="form-group">

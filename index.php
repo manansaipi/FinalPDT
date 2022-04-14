@@ -49,7 +49,7 @@ $name = $_SESSION["name"];
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">presuniv</div>
             </a>
 
             <!-- Divider -->
@@ -80,10 +80,8 @@ $name = $_SESSION["name"];
                 
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Table :</h6>
-                        <?php if($position === "CEO") : ?>
+                        <h6 class="collapse-header">Table :</h6>                
                         <a class="collapse-item" href="tableEmployee.php">Employee</a>
-                        <?php endif; ?>
                         <a class="collapse-item" href="tableTicket.php">Ticket</a>
                     </div>
                 </div>

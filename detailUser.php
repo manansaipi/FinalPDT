@@ -398,7 +398,7 @@ mark {
                     </div>
                     <div class="col-lg-6">
                         <div class="about-avatar">
-                            <img src="img/<?php echo $data2['image']; ?> " width="500" height="500" >
+                            <img src="img/<?php echo $data2['image']; ?> " width="400" height="500" >
                         </div>
                     </div>
                 </div>

@@ -85,9 +85,7 @@ $name = $_SESSION['name'];
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Table :</h6>
-                        <?php if($position === "CEO") : ?>
                         <a class="collapse-item" href="tableEmployee.php">Employee</a>
-                        <?php endif; ?>
                         <a class="collapse-item active" href="tableTicket.php">Ticket</a>
                     </div>
                 </div>

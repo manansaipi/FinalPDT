@@ -91,9 +91,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">table :</h6>
-                        <?php if($position === "CEO") : ?>
-                        <a class="collapse-item" href="tableEmployee.php">Employee</a>
-                        <?php endif; ?>
+                        <a class="collapse-item" href="tableEmployee.php">Employee</a>                 
                         <a class="collapse-item" href="tableTicket.php">Ticket</a>
                     </div>
                 </div>

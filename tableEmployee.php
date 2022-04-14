@@ -8,8 +8,10 @@ require 'functions.php';
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
 $data = query("SELECT * FROM users");
+$data2 = query("SELECT * FROM users");
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
+$position = $_SESSION['position'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -257,22 +259,25 @@ $name = $_SESSION['name'];
                                     </tfoot>
                                     <tbody>
                                     <?php foreach( $data as $data ) : ?>
-                                        <tr >
+                                        <tr>
                                             <td><?= $data["id"]?></td>
                                             <td><?= $data["name"]?></td>
                                             <td><?= $data["position"]?></td>
                                             <td><?= $data["country"]?></td>
                                             <td><?= $data["age"]?></td>
+                                    
                                             <td style="text-align: center;">
                                             <a href="detailUser.php?id=<?= $data["id"];?>" class="btn btn-info btn-circle btn-sm">
                                             <i class="fas fa-info-circle"></i>
                                             </a>
+                                            <?php if($position === "CEO") : ?>
                                             <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">
-                                            <span class="text">Edt</span>
+                                            <span class="text">Edit</span>
                                             </a>
-                                            <a href="deleteUser.php?id=<?= $data["id"];?>" class="btn btn-danger btn-circle btn-sm">
+                                            <a href="deleteUser.php?id=<?= $data["id"];?>" data-toggle="modal" data-target="#delete" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
                                             </a>
+                                            <?php endif; ?>
                                         </td>
                                         </tr>
                                         <?php endforeach;?>
@@ -325,6 +330,24 @@ $name = $_SESSION['name'];
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="logout.php">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete user ?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Delete" below if you want to delete user</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="deleteUser.php?id=<?= $data["id"];?>">Delete</a>
                 </div>
             </div>
         </div>

@@ -36,8 +36,8 @@ if( isset($_POST["register"]) ){
                <input class="pswrd" type="password" name="password2" id="password2" required>
                <input class="pswrd" type="hidden" name="bio" id="id" value="">
                <input class="pswrd" type="hidden" name="position" id="position" value="Employee">
-               <input class="pswrd" type="hidden" name="instagram" id="instagram" value="@">
-               <input class="pswrd" type="hidden" name="github" id="github" value="@">
+               <input class="pswrd" type="hidden" name="instagram" id="instagram" value="">
+               <input class="pswrd" type="hidden" name="github" id="github" value="">
                <input class="pswrd" type="hidden" name="country" id="country" value=" ">
                <input class="pswrd" type="hidden" name="birthday" id="birthday" value="">
                <input class="pswrd" type="hidden" name="age" id="age" value=" ">

@@ -249,20 +249,21 @@ if(isset($_POST["submit"])){
                                             <?php elseif($data['status_ticket'] == 1) : ?>
                                             <td><span class="badge badge-info m-0">In Progres</span></td>
                                             <?php elseif($data['status_ticket'] == 2) : ?>
-                                            <td><span class="badge badge-success m-0">Succes</span></td>
+                                            <td><span class="badge badge-success m-0">Success</span></td>
                                             <?php else : ?>
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?>
                                             <td style="text-align: center;">
-                                            <a href="detailMyTicket.php?id=<?php echo $data['id']; ?>" class="btn btn-info btn-icon-split btn-sm">
-                                            <span class="text">Detail</span>
-                                            </a> 
                                             <?php if($data['status_ticket'] != -1) : ?>      
                                                 <a href="#" class="btn btn-danger btn-icon-split btn-sm">
                                                 <span class="text">Cancel</span>
                                                 </a>
                                             </a>
                                             <?php endif; ?>
+                                            <a href="detailMyTicket.php?id=<?php echo $data['id']; ?>" class="btn btn-info btn-icon-split btn-sm">
+                                            <span class="text">Detail</span>
+                                            </a> 
+                                            
 
                                         </td>
                                         </tr>
@@ -342,7 +343,7 @@ if(isset($_POST["submit"])){
                                 <input style="display: none;" type="date" value="<?php echo date('Y-m-d'); ?>" name="date_ticket">  
                                 <input type="hidden" name="creator" value="<?php echo $id['name']; ?>">     
                                 <input type="hidden" name="status_ticket" value="0">
-                                <input type="hidden" name="id_user" value<?php echo $seasonId ?>/>
+                                <input type="hidden" name="id_user" value="<?php echo $id['id'] ?>" />
                            </div> 
                           </div>
                         </div>

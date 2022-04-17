@@ -207,7 +207,7 @@ $name = $_SESSION['name'];
                                         <tr>
                                             <th>No</th>
                                             <th>No Ticket</th>
-                                            <th>Ticket Title</th>
+                                            <th>Problem</th>
                                             <th>Date Created</th>
                                             <th>Status</th>
                                             <th style="text-align: center;">Action</th>
@@ -217,7 +217,7 @@ $name = $_SESSION['name'];
                                         <tr>
                                             <th>No</th>
                                             <th>No Ticket</th>
-                                            <th>Ticket Title</th>
+                                            <th>Problem</th>
                                             <th>Date Created</th>
                                             <th>Status</th>
                                             <th  style="text-align: center;">Action</th>
@@ -236,24 +236,27 @@ $name = $_SESSION['name'];
                                             <?php elseif($data['status_ticket'] == 1) : ?>
                                             <td><span class="badge badge-info m-0">In Progres</span></td>
                                             <?php elseif($data['status_ticket'] == 2) : ?>
-                                            <td><span class="badge badge-success m-0">Succes</span></td>
+                                            <td><span class="badge badge-success m-0">Solved</span></td>
                                             <?php else : ?>
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?>
                                             
                                             <td style="text-align: center;">
-                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-info btn-icon-split btn-sm">
-                                            <span class="text">Detail</span>
-                                            </a>
                                             <?php if($position === "CEO" || $position === "IT Employee") : ?>
-                                            <a href="#" class="btn btn-primary btn-icon-split btn-sm">
-                                            <span class="text">Confirm</span></a>
-                                            <?php if($data['status_ticket'] === -1) : ?>      
-                                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                            </a>
+                                            <?php if($data['status_ticket'] === "0" ) : ?>
+                                            <button class="btn btn-primary btn-icon-split btn-sm">
+                                            <span class="text">Confirm</span></button>
+                                            <?php elseif($data['status_ticket'] === "1") : ?>
+                                            <button class="btn btn-success btn-icon-split btn-sm">
+                                            <span class="text">Solved</span></button>                                
+                                            <?php else : ?>      
+                                            <button href="#" class="btn btn-danger btn-icon-split btn-sm">
+                                            <span class="text">Delete</span>
+                                            </button>
                                             <?php endif; ?>
                                             <?php endif; ?>
+                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-info btn-icon-split btn-sm">
+                                            <span class="text">Detail</span></a>
                                             
                                         </td>
                                         </tr>

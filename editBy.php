@@ -28,7 +28,14 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head scrollToBottom()>
+<script>
+    function scrollToBottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+    history.scrollRestoration = "manual";
+    window.onload = scrollToBottom;
+</script>
 
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +59,7 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
 
 </head>
 
-<body id="page-top">
+<body id="page-top" >
 
 
     <!-- Page Wrapper -->
@@ -241,11 +248,11 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                                             <td><?= $data["country"]?></td>
                                             <td><?= $data["age"]?></td>
                                             <td style="text-align: center;">
-                                            <a href="detailUser.php?id=<?php echo $data["id"]; ?>" class="btn btn-info btn-circle btn-sm">
-                                            <i class="fas fa-info-circle"></i>
+                                            <a href="detailUser.php?id=<?= $data["id"];?>" class="btn btn-info btn-icon-split btn-sm">
+                                            <span class="text">Detail</span>
                                             </a>
                                             <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">
-                                            <span class="text">Edt</span>
+                                            <span class="text">Edit</span>
                                             </a>
                                             <a href="deleteUser.php?id=<?= $data["id"];?>" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
@@ -665,63 +672,12 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                             </div>
                           </div>
                         </div>
-                    <div class="row">
-                      <div class="col-12 col-sm-6 mb-3">
-                        <div class="mb-2"><b></b></div>
                         <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              
-                              <input  type="hidden" class="form-control" type="password" placeholder="••••••">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label></label>
-                              <input type="hidden" class="form-control" type="password" placeholder="••••••">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label> <span class="d-none d-xl-inline"></span></label>
-                              <input type="hidden" class="form-control" type="password" placeholder="••••••"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                        <div class="mb-2"><b></b></div>
-                        <div class="row">
-                          <div class="col">
-                            <label></label>
-                            <div class="custom-controls-stacked px-2">
-                              <div class="custom-control custom-checkbox">
-                                <input type="hidden" type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                
-                              </div>
-                              <div class="custom-control custom-checkbox">
-                                <input type="hidden" type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                
-                              </div>
-                              <div class="custom-control custom-checkbox">
-                                <input type="hidden" type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
                       <div class="col d-flex justify-content-end">
                         <button class="btn btn-primary" name="submit" type="submit">Save Changes</button>
                       </div>
                     </div>
-                  </form>
-
+                  </form> 
                 </div>
               </div>
             </div>

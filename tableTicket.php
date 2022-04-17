@@ -228,7 +228,7 @@ $name = $_SESSION['name'];
                                         <?php foreach( $data as $data ) : ?>
                                         <tr >
                                             <td><?= $number += 1; ?></td>
-                                            <td><?= $data["no_ticket"]?></td>
+                                            <td><?= $data["id"]?></td>
                                             <td><?= $data["ticket_title"]?></td>
                                             <td><?= $data["date_ticket"]?></td>
                                             <?php if($data['status_ticket'] == 0) : ?>
@@ -242,7 +242,7 @@ $name = $_SESSION['name'];
                                             <?php endif; ?>
                                             
                                             <td style="text-align: center;">
-                                            <a href="#" class="btn btn-info btn-icon-split btn-sm">
+                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-info btn-icon-split btn-sm">
                                             <span class="text">Detail</span>
                                             </a>
                                             <?php if($position === "CEO" || $position === "IT Employee") : ?>

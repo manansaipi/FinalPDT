@@ -278,8 +278,9 @@ function addTicket($data){
     $creator = mysqli_real_escape_string($conn, $data["creator"]);
     $desc_ticket = mysqli_real_escape_string($conn, $data["desc_ticket"]);
     $status_ticket = mysqli_real_escape_string($conn, $data["status_ticket"]);
+    $id_user = mysqli_real_escape_string($conn, $data["id_user"]);
     $image = upload();
-    mysqli_query($conn, "INSERT INTO ticket VALUES('','$ticket_title','$date_ticket', '$creator','$desc_ticket', '$status_ticket', '$image')");
+    mysqli_query($conn, "INSERT INTO ticket VALUES('','$ticket_title','$date_ticket', '$creator','$desc_ticket', '$status_ticket', '$image', '$id_user')");
     return mysqli_affected_rows($conn);
     
 }

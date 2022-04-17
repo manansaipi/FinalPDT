@@ -5,14 +5,17 @@ if (!isset($_SESSION["login"])){
   exit;
 }
 require 'functions.php';
+
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
-$data = query("SELECT * FROM users");
+$position = $_SESSION['position'];
+$idTicket = ($_GET['id']);
+$data = query("SELECT * FROM ticket WHERE id = $idTicket")[0];
+
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
-$id2 = ($_GET["id"]);
-$data2 = query("SELECT * FROM users WHERE id = $id2")[0];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,8 +44,6 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
 </head>
 
 <body id="page-top">
-
-
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -85,17 +86,20 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Table :</h6>
-                        <a class="collapse-item active" href="tableEmployee.php">Employee</a>
-                        <a class="collapse-item" href="tableTicket.php">Ticket</a>
+                        <a class="collapse-item" href="tableEmployee.php">Employee</a>
+                        <a class="collapse-item active" href="tableTicket.php">Ticket</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="myTicket.php">
-                <i class="fas fa-fw fa-wrench"></i>
-                    <span>My Ticket</span></a>
+                <a class="nav-link" href='myTicket.php'"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>My Ticket</span>
+                </a>
+
             </li>
 
             <!-- Divider -->
@@ -106,10 +110,11 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
 
             <!-- Nav Item - Pages Collapse Menu -->
             
+
             <!-- Nav Item - Charts -->
             <?php foreach ($id as $id) : ?>
             <li class="nav-item">
-                <a class="nav-link" href="profileUpdate.php?id=<?= $id["id"]; ?>">
+                <a class="nav-link" href="profileUpdate.php?id=<?= $id['id']; ?>">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
             </li>
@@ -134,64 +139,9 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+        <?php endforeach; ?>
             <!-- Main Content -->
-            
-            <div id="content">
-                
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                                
-                            </a>
-                        <!-- Nav Item - Alerts -->
-                       
-
-                        <!-- Nav Item - User Information -->
-                        
-                        <li class="nav-item dropdown no-arrow">
-                            
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/<?= $_SESSION['image']; ?>">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"] ?>">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-                
-                    
-                
-                </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <style>body{
+            <style>body{
     color: #6F8BA4;
     margin-top:20px;
 }
@@ -322,59 +272,61 @@ mark {
                 <div class="row align-items-center flex-row-reverse">
                     <div class="col-lg-6">
                         <div class="about-text go-to">
-                            <h3 class="dark-color">About Me</h3>
-                            <h6 class="theme-color lead"><?php echo $data2['position'] ?></h6>
-                            <p><?= $data2['bio']; ?></p>
+                            <h3 class="dark-color">Detail Ticket</h3>
+                            <h6 class="theme-color lead"><?php echo $data['ticket_title'] ?></h6>
+                            <p><?= $data['desc_ticket']; ?></p>
                             <div class="row about-list">
                                 <div class="col-md-6">
                                 <div class="media">
-                                        <label>Name</label>
-                                        <p><?= $data2['name']; ?></p>
+                                        <label>Problem</label>
+                                        <p><?= $data['ticket_title']; ?></p>
                                     </div>
                                     <div class="media">
-                                        <label>Position</label>
-                                        <p><?php echo $data2["position"]; ?></p>
+                                        <label>No Ticket</label>
+                                        <p><?php echo $data["id"]; ?></p>
                                     </div>
+                                    
                                     <div class="media">
-                                        <label>Birthday</label>
-                                        <p><?= $data2['birthday']; ?></p>
-                                    </div>
-                                    <div class="media">
-                                        <label>Age</label>
-                                        <p><?= $data2['age']; ?> Yr</p>
+                                        <label>Status</label>
+                                        <p><?php if($data['status_ticket'] == 0) : ?>
+                                            <td><span class="badge badge-warning m-0">Waiting</span></td>
+                                            <?php elseif($data['status_ticket'] == 1) : ?>
+                                            <td><span class="badge badge-info m-0">In Progres</span></td>
+                                            <?php elseif($data['status_ticket'] == 2) : ?>
+                                            <td><span class="badge badge-success m-0">Succes</span></td>
+                                            <?php else : ?>
+                                            <td><span class="badge badge-danger m-0">Canceled</span></td>
+                                            <?php endif; ?></p>
                                     </div>
                                    
                                 </div>
                                 <div class="col-md-6">
                                     <div class="media">
-                                        <label>ID</label>
-                                        <p><?php echo $data2['id']; ?></p>
+                                        <label>Name</label>
+                                        <p><?= $data['creator']; ?></p>
                                     </div>
                                     <div class="media">
-                                        <label>Country</label>
-                                        <p><?php echo $data2['country']; ?></p>
+                                        <label>Id</label>
+                                        <p><?php echo $data['id_user']; ?></p>
                                     </div>
                                     <div class="media">
-                                        <label>Instagram</label>
-                                        <p>@<?php echo clean($data2['instagram']); ?></p>
-                                    </div>
-                                    <div class="media">
-                                        <label>GitHub</label>
-                                        <p>@<?php echo clean($data2['github']); ?></p>
+                                        <label>Date</label>
+                                        <p><?= $data['date_ticket']; ?></p>
                                     </div>
                                 </div>
-                                <a href="editBy.php?id=<?= $id["id"];?>"><button type="button" class="btn btn-primary">Edit Profile</button></a>
+                                <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                                            <span class="text">Confirm</span></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="about-avatar">
-                            <img src="img/<?php echo $data2['image']; ?> " width="400" height="500" >
+                            <img src="img/<?php echo $data['ticket_image']; ?> " width="500" height="500" >
                         </div>
                     </div>
                 </div>
         </section>
-        <?php endforeach; ?>
+        
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -417,7 +369,8 @@ mark {
             </div>
         </div>
     </div>
-    
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

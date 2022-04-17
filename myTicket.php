@@ -241,7 +241,7 @@ if(isset($_POST["submit"])){
                                         <?php foreach( $data as $data ) : ?>
                                         <tr >
                                             <td><?= $number += 1; ?></td>
-                                            <td><?= $data["no_ticket"]?></td>
+                                            <td><?= $data["id"]?></td>
                                             <td><?= $data["ticket_title"]?></td>
                                             <td><?= $data["date_ticket"]?></td>
                                             <?php if($data['status_ticket'] == 0) : ?>
@@ -254,7 +254,7 @@ if(isset($_POST["submit"])){
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?>
                                             <td style="text-align: center;">
-                                            <a href="#" class="btn btn-info btn-icon-split btn-sm">
+                                            <a href="detailMyTicket.php?id=<?php echo $data['id']; ?>" class="btn btn-info btn-icon-split btn-sm">
                                             <span class="text">Detail</span>
                                             </a> 
                                             <?php if($data['status_ticket'] != -1) : ?>      
@@ -342,6 +342,7 @@ if(isset($_POST["submit"])){
                                 <input style="display: none;" type="date" value="<?php echo date('Y-m-d'); ?>" name="date_ticket">  
                                 <input type="hidden" name="creator" value="<?php echo $id['name']; ?>">     
                                 <input type="hidden" name="status_ticket" value="0">
+                                <input type="hidden" name="id_user" value<?php echo $seasonId ?>/>
                            </div> 
                           </div>
                         </div>

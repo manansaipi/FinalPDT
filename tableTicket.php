@@ -230,7 +230,7 @@ $name = $_SESSION['name'];
                                             <td><?= $number += 1; ?></td>
                                             <td><?= $data["no_ticket"]?></td>
                                             <td><?= $data["ticket_title"]?></td>
-                                            <td><?= $data["creator"]?></td>
+                                            <td><?= $data["date_ticket"]?></td>
                                             <?php if($data['status_ticket'] == 0) : ?>
                                             <td><span class="badge badge-warning m-0">Waiting</span></td>
                                             <?php elseif($data['status_ticket'] == 1) : ?>
@@ -242,17 +242,19 @@ $name = $_SESSION['name'];
                                             <?php endif; ?>
                                             
                                             <td style="text-align: center;">
-                                            <a href="#" class="btn btn-info btn-circle btn-sm">
-                                            <i class="fas fa-info-circle"></i>  
+                                            <a href="#" class="btn btn-info btn-icon-split btn-sm">
+                                            <span class="text">Detail</span>
                                             </a>
                                             <?php if($position === "CEO" || $position === "IT Employee") : ?>
                                             <a href="#" class="btn btn-primary btn-icon-split btn-sm">
-                                            <span class="text">Edt</span>
-                                            </a>
+                                            <span class="text">Confirm</span></a>
+                                            <?php if($data['status_ticket'] === -1) : ?>      
                                             <a href="#" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
-                                            <?php endif; ?>
                                             </a>
+                                            <?php endif; ?>
+                                            <?php endif; ?>
+                                            
                                         </td>
                                         </tr>
                                         

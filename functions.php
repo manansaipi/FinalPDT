@@ -271,3 +271,15 @@ mysqli_query($conn, $query);
 
 return mysqli_affected_rows($conn);
 }
+function addTicket($data){
+    global $conn;
+    $ticket_title = stripslashes($data["ticket_title"]);
+    $date_ticket = $data["date_ticket"];
+    $creator = mysqli_real_escape_string($conn, $data["creator"]);
+    $desc_ticket = mysqli_real_escape_string($conn, $data["desc_ticket"]);
+    $status_ticket = mysqli_real_escape_string($conn, $data["status_ticket"]);
+    $image = upload();
+    mysqli_query($conn, "INSERT INTO ticket VALUES('','$ticket_title','$date_ticket', '$creator','$desc_ticket', '$status_ticket', '$image')");
+    return mysqli_affected_rows($conn);
+    
+}

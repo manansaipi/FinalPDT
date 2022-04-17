@@ -236,8 +236,8 @@ $position = $_SESSION['position'];
                                             <td><?= $data["age"]?></td>
                                     
                                             <td style="text-align: center;">
-                                            <a href="detailUser.php?id=<?= $data["id"];?>" class="btn btn-info btn-circle btn-sm">
-                                            <i class="fas fa-info-circle"></i>
+                                            <a href="detailUser.php?id=<?= $data["id"];?>" class="btn btn-info btn-icon-split btn-sm">
+                                            <span class="text">Detail</span>
                                             </a>
                                             <?php if($position === "CEO") : ?>
                                             <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">

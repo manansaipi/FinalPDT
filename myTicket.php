@@ -8,9 +8,18 @@ require 'functions.php';
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
 $position = $_SESSION['position'];
-$data = query("SELECT * FROM ticket");
-$id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
+$data = query("SELECT * FROM ticket WHERE creator = '$name'");
+$id = query("SELECT * FROM users where id = $seasonId");
+
+
+if(isset($_POST["submit"])){
+    if(addTicket($_POST) > 0 ){
+        echo "<script>alert('Ticket added !');document.location.href = 'myTicket.php';</script>";
+    } else {
+        echo "<script>alert('erorr!'); document.location.href = 'index.php';</script>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,6 +146,7 @@ $name = $_SESSION['name'];
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
+            <form class="form" action="" method="post" enctype="multipart/form-data">
             <div id="content">
 
                 <!-- Topbar -->
@@ -181,11 +191,12 @@ $name = $_SESSION['name'];
                         </li>
 
                     </ul>
-                <?php endforeach; ?>
+                
                 </nav>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
+                
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -195,10 +206,13 @@ $name = $_SESSION['name'];
                             href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
+                    
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example </h6>
+                            <div class="col-12 col-md-3 mb-3">     
                         </div>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -207,7 +221,7 @@ $name = $_SESSION['name'];
                                             <th>No</th>
                                             <th>No Ticket</th>
                                             <th>Ticket Title</th>
-                                            <th>Name</th>
+                                            <th>Date Created</th>
                                             <th>Status</th>
                                             <th style="text-align: center;">Action</th>
                                         </tr>
@@ -217,7 +231,7 @@ $name = $_SESSION['name'];
                                             <th>No</th>
                                             <th>No Ticket</th>
                                             <th>Ticket Title</th>
-                                            <th>Name</th>
+                                            <th>Date Created</th>
                                             <th>Status</th>
                                             <th  style="text-align: center;">Action</th>
                                         </tr>
@@ -229,7 +243,7 @@ $name = $_SESSION['name'];
                                             <td><?= $number += 1; ?></td>
                                             <td><?= $data["no_ticket"]?></td>
                                             <td><?= $data["ticket_title"]?></td>
-                                            <td><?= $data["creator"]?></td>
+                                            <td><?= $data["date_ticket"]?></td>
                                             <?php if($data['status_ticket'] == 0) : ?>
                                             <td><span class="badge badge-warning m-0">Waiting</span></td>
                                             <?php elseif($data['status_ticket'] == 1) : ?>
@@ -239,19 +253,17 @@ $name = $_SESSION['name'];
                                             <?php else : ?>
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?>
-                                            
                                             <td style="text-align: center;">
-                                            <a href="#" class="btn btn-info btn-circle btn-sm">
-                                            <i class="fas fa-info-circle"></i>  
+                                            <a href="#" class="btn btn-info btn-icon-split btn-sm">
+                                            <span class="text">Detail</span>
+                                            </a> 
+                                            <?php if($data['status_ticket'] != -1) : ?>      
+                                                <a href="#" class="btn btn-danger btn-icon-split btn-sm">
+                                                <span class="text">Cancel</span>
+                                                </a>
                                             </a>
-                                            <?php if($position === "CEO" && $position === "IT Employee") : ?>
-                                            <a href="#" class="btn btn-primary btn-icon-split btn-sm">
-                                            <span class="text">Edt</span>
-                                            </a>
-                                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                            <i class="fas fa-trash"></i>
                                             <?php endif; ?>
-                                            </a>
+
                                         </td>
                                         </tr>
                                         
@@ -259,6 +271,7 @@ $name = $_SESSION['name'];
                                         
                                     </tbody>
                                 </table>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTicket">Add Ticket</button>
                             </div>
                         </div>
                     </div>
@@ -267,6 +280,7 @@ $name = $_SESSION['name'];
                 <!-- /.container-fluid -->
 
             </div>
+                                            
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -304,12 +318,53 @@ $name = $_SESSION['name'];
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="addTicket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Report Problem</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="col">
+                            <div class="row">
+                                <div class="form-group">
+                                <label><b>Complaint</b></label>    
+                                <input class="form-control" type="text" name="ticket_title" />       
+                                <input style="display: none;" type="date" value="<?php echo date('Y-m-d'); ?>" name="date_ticket">  
+                                <input type="hidden" name="creator" value="<?php echo $id['name']; ?>">     
+                                <input type="hidden" name="status_ticket" value="0">
+                           </div> 
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label><b>Description</b></label>
+                              <textarea class="form-control" rows="3" name="desc_ticket"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <input class="" type="file" name="image"/>
 
+                    </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="submit" id="submit" name="submit" >Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <?php endforeach; ?>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

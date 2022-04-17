@@ -11,7 +11,7 @@ $id = $_GET["id"];
 if(deleteUser($id)>0){
     echo "  <script>
                 alert('Data deleted!')
-                document.location.href = 'index.php'
+                document.location.href = 'tableEmployee.php'
             </script>";
 
 } else {

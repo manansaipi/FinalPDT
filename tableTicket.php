@@ -8,7 +8,7 @@ require 'functions.php';
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
 $position = $_SESSION['position'];
-$data = query("SELECT * FROM users");
+$data = query("SELECT * FROM ticket");
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
 ?>
@@ -70,9 +70,7 @@ $name = $_SESSION['name'];
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
+            
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item active">
@@ -93,51 +91,22 @@ $name = $_SESSION['name'];
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                <a class="nav-link" href='myTicket.php'"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <span>My Ticket</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
+
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
+            
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
+            
 
             <!-- Nav Item - Charts -->
             <?php foreach ($id as $id) : ?>
@@ -236,45 +205,59 @@ $name = $_SESSION['name'];
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Country</th>
-                                            <th>Age</th>
+                                            <th>No</th>
+                                            <th>No Ticket</th>
+                                            <th>Ticket Title</th>
+                                            <th>Date Created</th>
+                                            <th>Status</th>
                                             <th style="text-align: center;">Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Country</th>
-                                            <th>Age</th>
+                                            <th>No</th>
+                                            <th>No Ticket</th>
+                                            <th>Ticket Title</th>
+                                            <th>Date Created</th>
+                                            <th>Status</th>
                                             <th  style="text-align: center;">Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <?php foreach( $data as $data ) : ?>
+                                        <?php global $number; ?>
+                                        <?php foreach( $data as $data ) : ?>
                                         <tr >
-                                            <td><?= $data["id"]?></td>
-                                            <td><?= $data["name"]?></td>
-                                            <td><?= $data["position"]?></td>
-                                            <td><?= $data["country"]?></td>
-                                            <td><?= $data["age"]?></td>
+                                            <td><?= $number += 1; ?></td>
+                                            <td><?= $data["no_ticket"]?></td>
+                                            <td><?= $data["ticket_title"]?></td>
+                                            <td><?= $data["creator"]?></td>
+                                            <?php if($data['status_ticket'] == 0) : ?>
+                                            <td><span class="badge badge-warning m-0">Waiting</span></td>
+                                            <?php elseif($data['status_ticket'] == 1) : ?>
+                                            <td><span class="badge badge-info m-0">In Progres</span></td>
+                                            <?php elseif($data['status_ticket'] == 2) : ?>
+                                            <td><span class="badge badge-success m-0">Succes</span></td>
+                                            <?php else : ?>
+                                            <td><span class="badge badge-danger m-0">Canceled</span></td>
+                                            <?php endif; ?>
+                                            
                                             <td style="text-align: center;">
                                             <a href="#" class="btn btn-info btn-circle btn-sm">
-                                            <i class="fas fa-info-circle"></i>
+                                            <i class="fas fa-info-circle"></i>  
                                             </a>
+                                            <?php if($position === "CEO" || $position === "IT Employee") : ?>
                                             <a href="#" class="btn btn-primary btn-icon-split btn-sm">
                                             <span class="text">Edt</span>
                                             </a>
                                             <a href="#" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
+                                            <?php endif; ?>
                                             </a>
                                         </td>
                                         </tr>
+                                        
                                         <?php endforeach;?>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -291,7 +274,7 @@ $name = $_SESSION['name'];
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; BenTeng 2022</span>
                     </div>
                 </div>
             </footer>

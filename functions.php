@@ -210,6 +210,10 @@ function updateProfile2($data){
     $name = htmlspecialchars($data["name"]);
     $username = strtolower(stripslashes($data["username"]));
     $username2 = strtolower(stripslashes($data["username2"]));
+    $instagram = stripslashes(strtolower(htmlspecialchars($data["instagram"])));
+    $github = stripslashes(strtolower(htmlspecialchars($data["github"])));
+    $bio = htmlspecialchars($data["bio"]);
+    $birthday = ($data["birthday"]);
     $position = ($data["position"]);
     $country = ($data["country"]);
     $age = ($data["age"]);
@@ -234,9 +238,13 @@ function updateProfile2($data){
             id = '$id',
             name = '$name',
             username = '$username',
+            bio = '$bio',
             image = '$image',
             position = '$position',
-            country = '$country', 
+            instagram = '$instagram',
+            github = '$github',
+            country = '$country',
+            birthday = '$birthday', 
             age = '$age'   
             WHERE id = $id";
     mysqli_query($conn, $query);

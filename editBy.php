@@ -83,10 +83,7 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
+            
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item active">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
@@ -106,52 +103,18 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="myTicket.php">
+                <i class="fas fa-fw fa-wrench"></i>
+                    <span>My Ticket</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
+           
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
+            
             <!-- Nav Item - Charts -->
             <?php foreach ($id as $id) : ?>
             <li class="nav-item">
@@ -672,7 +635,36 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                         </div>
                       </div>
                     </div>
-                    
+                    <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Instagram</label>
+                              <input class="form-control" type="text" name="instagram" placeholder="Instagram" value="<?php echo ($data2['instagram']) ?>">                        
+                           </div>         
+                          </div>
+                          <div class="col">
+                            <div class="form-group">
+                              <label>GitHub</label>      
+                              <input class="form-control" type="text" name="github" placeholder="GitHub" value="<?php echo clean($data2['github']); ?>">                            
+                            </div>
+                          </div>
+                        </div>
+                    <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                            <label for="birthday">Birthday:</label>
+                            <input type="date" id="birthday" value="<?php echo $data2['birthday']; ?>" name="birthday">
+                            </div>
+                          </div>
+                        </div>
+                    <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>About</label>
+                              <textarea class="form-control" rows="5" name="bio" placeholder="My Bio"><?php echo $data2['bio']; ?></textarea>
+                            </div>
+                          </div>
+                        </div>
                     <div class="row">
                       <div class="col-12 col-sm-6 mb-3">
                         <div class="mb-2"><b></b></div>
@@ -767,7 +759,7 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; BenTeng 2022</span>
                     </div>
                 </div>
             </footer>

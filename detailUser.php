@@ -373,8 +373,13 @@ mark {
                         </div>
                     </div>
                 </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
         </section>
         <?php endforeach; ?>
+        
             <!-- End of Main Content -->
 
             <!-- Footer -->

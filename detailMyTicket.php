@@ -313,8 +313,19 @@ mark {
                                         <p><?= $data['date_ticket']; ?></p>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-primary btn-icon-split btn-sm">
-                                            <span class="text">Confirm</span></a>
+                                <?php if($position === "CEO" || $position === "IT Employee") : ?>
+                                <?php if($data['status_ticket'] === "0" ) : ?>
+                                <button class="btn btn-primary btn-icon-split">
+                                <span class="text">Confirm</span></button>
+                                <?php elseif($data['status_ticket'] === "1") : ?>
+                                <button class="btn btn-success btn-icon-split">
+                                <span class="text">Solved</span></button>                                
+                                <?php else : ?>      
+                                <button href="#" class="btn btn-danger btn-icon-split">
+                                <span class="text">Delete</span>
+                                </button>
+                                <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -324,8 +335,10 @@ mark {
                         </div>
                     </div>
                 </div>
+                </div>
         </section>
-        
+        </div>
+        </div>
             <!-- End of Main Content -->
 
             <!-- Footer -->

@@ -220,7 +220,7 @@ if(isset($_POST["submit"])){
                                         <tr>
                                             <th>No</th>
                                             <th>No Ticket</th>
-                                            <th>Ticket Title</th>
+                                            <th>Problem</th>
                                             <th>Date Created</th>
                                             <th>Status</th>
                                             <th style="text-align: center;">Action</th>
@@ -230,7 +230,7 @@ if(isset($_POST["submit"])){
                                         <tr>
                                             <th>No</th>
                                             <th>No Ticket</th>
-                                            <th>Ticket Title</th>
+                                            <th>Problem</th>
                                             <th>Date Created</th>
                                             <th>Status</th>
                                             <th  style="text-align: center;">Action</th>
@@ -279,8 +279,10 @@ if(isset($_POST["submit"])){
 
                 </div>
                 <!-- /.container-fluid -->
-
-            </div>
+                </div>
+                <!-- /.container-fluid -->
+                </div></div>
+                </div>
                                             
             <!-- End of Main Content -->
 
@@ -291,9 +293,10 @@ if(isset($_POST["submit"])){
                         <span>Copyright &copy; BenTeng 2022</span>
                     </div>
                 </div>
+                
             </footer>
             <!-- End of Footer -->
-
+            </div>
         </div>
         <!-- End of Content Wrapper -->
 

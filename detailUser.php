@@ -16,7 +16,14 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head scrollToBottom()>
+<script>
+    function scrollToBottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+    history.scrollRestoration = "manual";
+    window.onload = scrollToBottom;
+</script>
 
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +31,7 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>Detail User</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -53,9 +60,9 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">PRESUNIV</div>
             </a>
 
             <!-- Divider -->

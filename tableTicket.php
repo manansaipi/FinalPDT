@@ -13,13 +13,11 @@ $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
 
 
-if(isset($_POST['submitBtn'])){
-    $id2 = $_GET["id"];
-    echo $id2; die;
-    if(confirmTicket($id2) > 0){
+if(isset($_POST['confirmBtn'])){   
+    if(confirmTicket($_POST) > 0){
          echo "  <script>
-                alert('Data deleted!')
-                document.location.href = 'tableEmployee.php'
+                alert('Data Confirm!')
+                document.location.href = 'tableTicket.php'
             </script>";
     }
 }
@@ -37,7 +35,7 @@ if(isset($_POST['submitBtn'])){
     <meta name="author" content="">
 
     <title>Table Ticket</title>
-
+    
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -250,20 +248,21 @@ if(isset($_POST['submitBtn'])){
                                             <td style="text-align: center;">
                                             <?php if($position === "CEO" || $position === "IT Employee") : ?>
                                             <?php if($data['status_ticket'] === "0" ) : ?>
-                                            <a href="?id=<?= $data["id"];?>"data-toggle="modal" data-target="#confirm" class="btn btn-primary btn-icon-split btn-sm">
+                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-primary btn-icon-split btn-sm"> 
                                             <span class="text">Confirm</span></a>
                                             <?php elseif($data['status_ticket'] === "1") : ?>
-                                            <a class="btn btn-success btn-icon-split btn-sm">
+                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-success btn-icon-split btn-sm">
                                             <span class="text">Solved</span></a>                                
                                             <?php else : ?>      
-                                            <a href="#" class="btn btn-danger btn-icon-split btn-sm">
+                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-danger btn-icon-split btn-sm">
                                             <span class="text">Delete</span>
                                             </a>
                                             <?php endif; ?>
                                             <?php endif; ?>
+                                            <?php if($position === "Employee") : ?>
                                             <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-info btn-icon-split btn-sm">
                                             <span class="text">Detail</span></a>
-                                            
+                                            <?php endif; ?>
                                         </td>
                                         </tr>
                                         
@@ -321,24 +320,7 @@ if(isset($_POST['submitBtn'])){
             </div>
         </div>
     </div>
-    <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirm Ticket ?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Confirm" below to confirm the ticket. </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" type="submit" id="confirmBtn" >Confirm</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
     <!-- Bootstrap core JavaScript-->

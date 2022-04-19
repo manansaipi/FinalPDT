@@ -251,15 +251,16 @@ if(isset($_POST["submit"])){
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?>
                                             <td style="text-align: center;">
-                                            <?php if($data['status_ticket'] != -1) : ?>      
-                                                <a href="#" class="btn btn-danger btn-icon-split btn-sm">
-                                                <span class="text">Cancel</span>
-                                                </a>
-                                            </a>
-                                            <?php endif; ?>
+                                            
+                                            <?php if($data['status_ticket'] != 2) : ?>
                                             <a href="detailMyTicket.php?id=<?php echo $data['id']; ?>" class="btn btn-info btn-icon-split btn-sm">
                                             <span class="text">Detail</span>
                                             </a> 
+                                            <?php else : ?>
+                                            <a href="detailMyTicket.php?id=<?php echo $data['id']; ?>" class="btn btn-success btn-icon-split btn-sm">
+                                            <span class="text">See Feedback</span>
+                                            </a> 
+                                            <?php endif; ?> 
                                             
 
                                         </td>
@@ -344,6 +345,8 @@ if(isset($_POST["submit"])){
                                 <input type="hidden" name="creator" value="<?php echo $id['name']; ?>">     
                                 <input type="hidden" name="status_ticket" value="0">
                                 <input type="hidden" name="id_user" value="<?php echo $id['id'] ?>" />
+                                <input type="hidden" name="solved_by" valu=" ">
+                                <input type="hidden" name="feedback" valu=" ">
                            </div> 
                           </div>
                         </div>

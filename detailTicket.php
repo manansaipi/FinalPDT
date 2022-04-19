@@ -14,7 +14,24 @@ $data = query("SELECT * FROM ticket WHERE id = $idTicket")[0];
 
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
+if(isset($_POST['confirmBtn'])){   
+    if(confirmTicket($_POST) > 0){
+         echo "  <script>
+                alert('Ticket Confirm!')
+                document.location.href = 'tableTicket.php'
+            </script>";
+    }
+}
+if(isset($_POST['solvedBtn'])){   
+    if(solvedTicket($_POST) > 0){
+         echo "  <script>
+                alert('Ticket Solved!')
+                document.location.href = 'tableTicket.php'
+            </script>";
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +52,25 @@ $name = $_SESSION['name'];
     <meta name="author" content="">
 
     <title>SB Admin 2 - Tables</title>
-
+    <link rel="stylesheet" href=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity=
+"sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+        crossorigin="anonymous">
+  
+    <!-- Import jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity=
+"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous">
+    </script>
+      
+    <script src=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity=
+"sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous">
+    </script>
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -377,11 +412,13 @@ mark {
                                 </div>
                                 
                                 <?php if($position === "CEO" || $position === "IT Employee") : ?>
+                                <input type="hidden" id="idTck" value="<?= $data['id'] ?> ">
                                 <?php if($data['status_ticket'] === "0" ) : ?>
-                                <button class="btn btn-primary btn-icon-split">
+                                <button id="confirmBtn" data-toggle="modal" data-target="#confirm" class="btn btn-primary btn-icon-split">
                                 <span class="text">Confirm</span></button>
                                 <?php elseif($data['status_ticket'] === "1") : ?>
-                                <button class="btn btn-success btn-icon-split">
+                                <input type="hidden" id="solvedBy" value="<?php echo $_SESSION['name']; ?>">
+                                <button id="solvedBtn" data-toggle="modal" data-target="#solved" class="btn btn-success btn-icon-split">
                                 <span class="text">Solved</span></button>                                
                                 <?php else : ?>      
                                 <button href="#" class="btn btn-danger btn-icon-split">
@@ -442,7 +479,79 @@ mark {
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Ticket ?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Confirm" below to confirm the ticket. </div>
+                <div class="modal-footer">
+                    <form class="form" action="" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="idtiket" name="idtiket"></input>
+                        <input type="hidden" name="status_ticket" value="1">
+                        
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="submit" name="confirmBtn" id="confirmBtn" >Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="modal fade" id="solved" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Solved Ticket ?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Solved" below if the problem has been solved. </div>
+                <form class="form" action="" method="post" enctype="multipart/form-data">
+                    <div class="col">
+                        <div class="form-group">
+                            <label><b>Feedback</b></label>
+                            <textarea class="form-control" rows="3" name="feedback" placeholder="Add feedback"></textarea>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    
+                        <input type="hidden" id="idtiket2" name="idtiket2"></input>
+                        <input type="hidden" name="status_ticket" value="2">
+                        <input type="hidden" name="solved_by" id="solved_by">
+                        
+                        
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-success" type="submit" name="solvedBtn" id="solvedBtn" >Solved</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script type="text/javascript">
+        
+            $('#confirmBtn').click(function () {
+            var text = $("#idTck").val();
+            document.getElementById("idtiket").value = (text);
+            
+        });
+    </script>
+    <script type="text/javascript">
+        
+        $('#solvedBtn').click(function () {
+        var text = $("#idTck").val();
+        var name = $("#solvedBy").val();
+        document.getElementById("idtiket2").value = (text);
+        document.getElementById("solved_by").value = (name);
+        
+    });
+</script>
 
 
     <!-- Bootstrap core JavaScript-->

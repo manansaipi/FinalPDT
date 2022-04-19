@@ -7,6 +7,7 @@ if (!isset($_SESSION["login"])){
 require 'functions.php';
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
+$position = $_SESSION['position'];
 $data = query("SELECT * FROM users");
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
@@ -370,7 +371,9 @@ mark {
                                         <p>@<?php echo clean($data2['github']); ?></p>
                                     </div>
                                 </div>
+                                <?php if($position === "CEO") : ?>
                                 <a href="editBy.php?id=<?= $id["id"];?>"><button type="button" class="btn btn-primary">Edit Profile</button></a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

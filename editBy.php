@@ -246,10 +246,10 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                                             </a>
                                             <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">
                                             <span class="text">Edit</span>
-                                            </a>
+                                            <!-- </a>
                                             <a href="deleteUser.php?id=<?= $data["id"];?>" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
-                                            </a>
+                                            </a> -->
                                         </td>
                                         </tr>
                                         <?php endforeach;?>

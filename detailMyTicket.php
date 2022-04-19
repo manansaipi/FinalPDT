@@ -14,6 +14,15 @@ $data = query("SELECT * FROM ticket WHERE id = $idTicket")[0];
 
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
+
+if(isset($_POST['cancelButton'])){   
+    if(cancelTicket($_POST) > 0){
+         echo "  <script>
+                alert('Ticket Canceled !')
+                document.location.href = 'myTicket.php'
+            </script>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +35,25 @@ $name = $_SESSION['name'];
     history.scrollRestoration = "manual";
     window.onload = scrollToBottom;
 </script>
-
+<link rel="stylesheet" href=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity=
+"sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+        crossorigin="anonymous">
+  
+    <!-- Import jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity=
+"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous">
+    </script>
+      
+    <script src=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity=
+"sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous">
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -353,7 +380,7 @@ mark {
                                             <?php elseif($data['status_ticket'] == 1) : ?>
                                             <td><span class="badge badge-info m-0">In Progres</span></td>
                                             <?php elseif($data['status_ticket'] == 2) : ?>
-                                            <td><span class="badge badge-success m-0">Succes</span></td>
+                                            <td><span class="badge badge-success m-0">Success</span></td>
                                             <?php else : ?>
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?></p>
@@ -374,18 +401,10 @@ mark {
                                         <p><?= $data['date_ticket']; ?></p>
                                     </div>
                                 </div>
-                                <?php if($position === "CEO" || $position === "IT Employee") : ?>
-                                <?php if($data['status_ticket'] === "0" ) : ?>
-                                <button class="btn btn-primary btn-icon-split">
-                                <span class="text">Confirm</span></button>
-                                <?php elseif($data['status_ticket'] === "1") : ?>
-                                <button class="btn btn-success btn-icon-split">
-                                <span class="text">Solved</span></button>                                
-                                <?php else : ?>      
-                                <button href="#" class="btn btn-danger btn-icon-split">
-                                <span class="text">Delete</span>
-                                </button>
-                                <?php endif; ?>
+                                <?php if($data['status_ticket'] != -1 && $data['status_ticket'] != 2) : ?>      
+                                    <input type="hidden" id="idTck" value="<?= $data['id'] ?> ">
+                                    <button id="cancelBtn" data-toggle="modal" data-target="#cancel" class="btn btn-danger btn-icon-split">
+                                    <span class="text">Cancel Ticket</span></button> 
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -442,6 +461,40 @@ mark {
             </div>
         </div>
     </div>
+    <div class="modal fade" id="cancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cancel Ticket ?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Cancel Ticket" below to Cancel the ticket. </div>
+                <div class="modal-footer">
+                    <form class="form" action="" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="idtiket" name="idtiket"></input>
+                        <input type="hidden" name="status_ticket" value="-1">
+                        
+                        
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-danger" type="submit" name="cancelButton" id="cancelButton" >Cancel Ticket</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script type="text/javascript">
+        
+        $('#cancelBtn').click(function () {
+        var text = $("#idTck").val();
+        document.getElementById("idtiket").value = (text);
+        
+
+        
+    });
+</script>
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->

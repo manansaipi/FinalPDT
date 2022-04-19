@@ -139,7 +139,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column"> 
 
             <!-- Main Content -->
             <div id="content">

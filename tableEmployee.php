@@ -237,9 +237,9 @@ $position = $_SESSION['position'];
                                             <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">
                                             <span class="text">Edit</span>
                                             </a>
-                                            <a href="deleteUser.php?id=<?= $data["id"];?>" data-toggle="modal" data-target="#delete" class="btn btn-danger btn-circle btn-sm">
+                                            <!-- <a href="deleteUser.php?id=<?= $data["id"];?>" data-toggle="modal" data-target="#delete" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
-                                            </a>
+                                            </a> -->
                                             <?php endif; ?>
                                         </td>
                                         </tr>

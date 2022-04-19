@@ -279,8 +279,40 @@ function addTicket($data){
     $desc_ticket = mysqli_real_escape_string($conn, $data["desc_ticket"]);
     $status_ticket = mysqli_real_escape_string($conn, $data["status_ticket"]);
     $id_user = mysqli_real_escape_string($conn, $data["id_user"]);
+    $solved_by = $data["solved_by"];
+    $feedback = $data['feedback'];
     $image = upload();
-    mysqli_query($conn, "INSERT INTO ticket VALUES('','$ticket_title','$date_ticket', '$creator','$desc_ticket', '$status_ticket', '$image', '$id_user')");
+    mysqli_query($conn, "INSERT INTO ticket VALUES('','$ticket_title','$date_ticket', '$creator','$desc_ticket', '$status_ticket', '$image', '$id_user','$solved_by','$feedback')");
+
     return mysqli_affected_rows($conn);
     
+}
+function confirmTicket($data){
+    global $conn;
+    $id = htmlspecialchars($data["idtiket"]);
+    $statusTciket = $data["status_ticket"];
+    mysqli_query($conn, "UPDATE ticket SET status_ticket = '$statusTciket' WHERE id = '$id'");
+    return mysqli_affected_rows($conn);
+}
+function solvedTicket($data){
+    global $conn;
+    $id = htmlspecialchars($data["idtiket2"]);
+    $statusTciket = $data["status_ticket"];
+    $solved_by = $data["solved_by"];
+    $feedback = $data["feedback"];
+    mysqli_query($conn, "UPDATE ticket SET 
+                    status_ticket = '$statusTciket',
+                    solved_by = '$solved_by',
+                    feedback = '$feedback'   
+                    WHERE id = '$id'");
+    return mysqli_affected_rows($conn);
+}
+function cancelTicket($data){
+    global $conn;
+    $id = htmlspecialchars($data["idtiket"]);
+    $statusTciket = $data["status_ticket"];
+    mysqli_query($conn, "UPDATE ticket SET 
+                    status_ticket = '$statusTciket'   
+                    WHERE id = '$id'");
+    return mysqli_affected_rows($conn);
 }

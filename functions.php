@@ -361,3 +361,9 @@ function cancelTicket($data)
 	);
 	return mysqli_affected_rows($conn);
 }
+function deleteTicket($id)
+{
+	global $conn;
+	mysqli_query($conn, "DELETE FROM ticket WHERE id = $id");
+	return mysqli_affected_rows($conn);
+}

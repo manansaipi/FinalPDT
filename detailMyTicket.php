@@ -1,27 +1,27 @@
-<?php  
+<?php
 session_start();
-if (!isset($_SESSION["login"])){
-  header("location: login.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+	header('location: login.php');
+	exit();
 }
 require 'functions.php';
 
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
 $position = $_SESSION['position'];
-$idTicket = ($_GET['id']);
+$idTicket = $_GET['id'];
 $data = query("SELECT * FROM ticket WHERE id = $idTicket")[0];
 
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
 
-if(isset($_POST['cancelButton'])){   
-    if(cancelTicket($_POST) > 0){
-         echo "  <script>
+if (isset($_POST['cancelButton'])) {
+	if (cancelTicket($_POST) > 0) {
+		echo "  <script>
                 alert('Ticket Canceled !')
                 document.location.href = 'myTicket.php'
             </script>";
-    }
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -142,10 +142,10 @@ if(isset($_POST['cancelButton'])){
             
 
             <!-- Nav Item - Charts -->
-            <?php foreach ($id as $id) : ?>
+            <?php foreach ($id as $id): ?>
                 <li class="nav-item">
             
-            <a class="nav-link" href='profileUpdate.php?id=<?= $id["id"]; ?>'>
+            <a class="nav-link" href='profileUpdate.php?id=<?= $id['id'] ?>'>
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 <span>Profile</span></a>
                
@@ -200,14 +200,18 @@ if(isset($_POST['cancelButton'])){
                 
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION[
+                    	'name'
+                    ]; ?></span>
                     <img class="img-profile rounded-circle"
-                        src="img/<?= $_SESSION['image']; ?>">
+                        src="img/<?= $_SESSION['image'] ?>">
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                     aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"] ?>">
+                    <a class="dropdown-item" href="profileUpdate.php?id=<?= $id[
+                    	'id'
+                    ] ?>">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
                     </a>
@@ -360,49 +364,72 @@ mark {
                     <div class="col-lg-6">
                         <div class="about-text go-to">
                             <h3 class="dark-color">Detail Ticket</h3>
-                            <h6 class="theme-color lead"><?php echo $data['ticket_title'] ?></h6>
-                            <p><?= $data['desc_ticket']; ?></p>
+                            <h6 class="theme-color lead"><?php echo $data[
+                            	'ticket_title'
+                            ]; ?></h6>
+                            <p><?= $data['desc_ticket'] ?></p>
                             <div class="row about-list">
                                 <div class="col-md-6">
                                 <div class="media">
                                         <label>Problem</label>
-                                        <p><?= $data['ticket_title']; ?></p>
+                                        <p><?= $data['ticket_title'] ?></p>
                                     </div>
                                     <div class="media">
                                         <label>No Ticket</label>
-                                        <p><?php echo $data["id"]; ?></p>
+                                        <p><?php echo $data['id']; ?></p>
                                     </div>
                                     
                                     <div class="media">
                                         <label>Status</label>
-                                        <p><?php if($data['status_ticket'] == 0) : ?>
+                                        <p><?php if (
+                                        	$data['status_ticket'] == 0
+                                        ): ?>
                                             <td><span class="badge badge-warning m-0">Waiting</span></td>
-                                            <?php elseif($data['status_ticket'] == 1) : ?>
+                                            <?php elseif (
+                                        	$data['status_ticket'] == 1
+                                        ): ?>
                                             <td><span class="badge badge-info m-0">In Progres</span></td>
-                                            <?php elseif($data['status_ticket'] == 2) : ?>
+                                            <?php elseif (
+                                        	$data['status_ticket'] == 2
+                                        ): ?>
                                             <td><span class="badge badge-success m-0">Success</span></td>
-                                            <?php else : ?>
+                                            <?php else: ?>
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?></p>
                                     </div>
-                                   
+                                    <?php if ($data['status_ticket'] == '2'): ?>
+                                    <h6 class="dark-color"><hr></h6>
+                                    <div>
+                                        <label for="">Name</label>
+                                        <p><?= $data['solved_by'] ?></p>
+                                    </div>
+                                    <div>
+                                        <label for="">Feedback</label>
+                                        <p><?= $data['feedback'] ?></p>
+                                    </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="media">
                                         <label>Name</label>
-                                        <p><?= $data['creator']; ?></p>
+                                        <p><?= $data['creator'] ?></p>
                                     </div>
                                     <div class="media">
                                         <label>Id</label>
-                                        <p><?= $data['id_user']; ?></p>
+                                        <p><?= $data['id_user'] ?></p>
                                     </div>
                                     <div class="media">
                                         <label>Date</label>
-                                        <p><?= $data['date_ticket']; ?></p>
+                                        <p><?= $data['date_ticket'] ?></p>
                                     </div>
                                 </div>
-                                <?php if($data['status_ticket'] != -1 && $data['status_ticket'] != 2) : ?>      
-                                    <input type="hidden" id="idTck" value="<?= $data['id'] ?> ">
+                                <?php if (
+                                	$data['status_ticket'] != -1 &&
+                                	$data['status_ticket'] != 2
+                                ): ?>      
+                                    <input type="hidden" id="idTck" value="<?= $data[
+                                    	'id'
+                                    ] ?> ">
                                     <button id="cancelBtn" data-toggle="modal" data-target="#cancel" class="btn btn-danger btn-icon-split">
                                     <span class="text">Cancel Ticket</span></button> 
                                 <?php endif; ?>
@@ -411,7 +438,9 @@ mark {
                     </div>
                     <div class="col-lg-6">
                         <div class="about-avatar">
-                            <img src="img/<?php echo $data['ticket_image']; ?> " width="500" height="500" >
+                            <img src="img/<?php echo $data[
+                            	'ticket_image'
+                            ]; ?> " width="500" height="500" >
                         </div>
                     </div>
                 </div>

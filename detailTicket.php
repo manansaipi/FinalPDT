@@ -428,7 +428,7 @@ mark {
                                 <button id="solvedBtn" data-toggle="modal" data-target="#solved" class="btn btn-success btn-icon-split">
                                 <span class="text">Solved Ticket</span></button>                                
                                 <?php else: ?>      
-                                <a href="deleteTicket.php?id=<?php echo $data[
+                                <a data-toggle="modal" data-target="#delete" class="btn btn-danger btn-icon-split" href="deleteTicket.php?id=<?php echo $data[
                                 	'id'
                                 ]; ?>" class="btn btn-danger btn-icon-split">
                                 <span class="text">Delete Ticket</span>
@@ -563,6 +563,30 @@ mark {
             </div>
         </div>
     </div> 
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Ticket ?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Delet Ticket" below to delete ticket.</div>
+                <form class="form" action="" method="post" enctype="multipart/form-data">
+                <div class="modal-footer">
+                    <input type="hidden" id="idUsr" name="idUsr">
+                    
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" href="deleteTicket.php?id=<?php echo $data[
+                    	'id'
+                    ]; ?>" name="deleteButtn" id="deleteButton">Delet Ticket</a>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         
             $('#confirmBtn').click(function () {

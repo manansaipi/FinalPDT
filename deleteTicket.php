@@ -8,9 +8,9 @@ require 'functions.php';
 
 $id = $_GET['id'];
 
-if (deletTicket($id) > 0) {
+if (deleteTicket($id) > 0) {
 	echo "  <script>
-                alert('Ticket deleted!')
+                alert('Ticket deleted !')
                 document.location.href = 'tableTicket.php'
             </script>";
 } else {

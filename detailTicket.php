@@ -1,34 +1,34 @@
-<?php  
+<?php
 session_start();
-if (!isset($_SESSION["login"])){
-  header("location: login.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+	header('location: login.php');
+	exit();
 }
 require 'functions.php';
 
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
 $position = $_SESSION['position'];
-$idTicket = ($_GET['id']);
+$idTicket = $_GET['id'];
 $data = query("SELECT * FROM ticket WHERE id = $idTicket")[0];
 
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
-if(isset($_POST['confirmBtn'])){   
-    if(confirmTicket($_POST) > 0){
-         echo "  <script>
+if (isset($_POST['confirmBtn'])) {
+	if (confirmTicket($_POST) > 0) {
+		echo "  <script>
                 alert('Ticket Confirm!')
                 document.location.href = 'tableTicket.php'
             </script>";
-    }
+	}
 }
-if(isset($_POST['solvedBtn'])){   
-    if(solvedTicket($_POST) > 0){
-         echo "  <script>
+if (isset($_POST['solvedBtn'])) {
+	if (solvedTicket($_POST) > 0) {
+		echo "  <script>
                 alert('Ticket Solved!')
                 document.location.href = 'tableTicket.php'
             </script>";
-    }
+	}
 }
 ?>
 
@@ -51,7 +51,7 @@ if(isset($_POST['solvedBtn'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>Detail Ticket</title>
     <link rel="stylesheet" href=
 "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity=
@@ -96,9 +96,9 @@ if(isset($_POST['solvedBtn'])){
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">PRESUNIV</div>
             </a>
 
             <!-- Divider -->
@@ -154,9 +154,11 @@ if(isset($_POST['solvedBtn'])){
             
 
             <!-- Nav Item - Charts -->
-            <?php foreach ($id as $id) : ?>
+            <?php foreach ($id as $id): ?>
             <li class="nav-item">
-                <a class="nav-link" href="profileUpdate.php?id=<?= $id['id']; ?>">
+                <a class="nav-link" href="profileUpdate.php?id=<?= $id[
+                	'id'
+                ] ?>">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
             </li>
@@ -209,14 +211,18 @@ if(isset($_POST['solvedBtn'])){
                 
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION[
+                    	'name'
+                    ]; ?></span>
                     <img class="img-profile rounded-circle"
-                        src="img/<?= $_SESSION['image']; ?>">
+                        src="img/<?= $_SESSION['image'] ?>">
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                     aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"] ?>">
+                    <a class="dropdown-item" href="profileUpdate.php?id=<?= $id[
+                    	'id'
+                    ] ?>">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
                     </a>
@@ -369,37 +375,73 @@ mark {
                     <div class="col-lg-6">
                         <div class="about-text go-to">
                             <h3 class="dark-color">Detail Ticket</h3>
-                            <h6 class="theme-color lead"><?php echo $data['ticket_title'] ?></h6>
-                            <p><?= $data['desc_ticket']; ?></p>
+                            <h6 class="theme-color lead"><?php echo $data[
+                            	'ticket_title'
+                            ]; ?></h6>
+                            <p><?= $data['desc_ticket'] ?></p>
                             <div class="row about-list">
                                 <div class="col-md-6">
                                 <div class="media">
                                         <label>Problem</label>
-                                        <p><?= $data['ticket_title']; ?></p>
+                                        <p><?= $data['ticket_title'] ?></p>
                                     </div>
                                     <div class="media">
                                         <label>No Ticket</label>
-                                        <p><?php echo $data["id"]; ?></p>
+                                        <p><?php echo $data['id']; ?></p>
                                     </div>
                                     
                                     <div class="media">
                                         <label>Status</label>
-                                        <p><?php if($data['status_ticket'] == 0) : ?>
+                                        <p><?php if (
+                                        	$data['status_ticket'] == 0
+                                        ): ?>
                                             <td><span class="badge badge-warning m-0">Waiting</span></td>
-                                            <?php elseif($data['status_ticket'] == 1) : ?>
+                                            <?php elseif (
+                                        	$data['status_ticket'] == 1
+                                        ): ?>
                                             <td><span class="badge badge-info m-0">In Progres</span></td>
-                                            <?php elseif($data['status_ticket'] == 2) : ?>
+                                            <?php elseif (
+                                        	$data['status_ticket'] == 2
+                                        ): ?>
                                             <td><span class="badge badge-success m-0">Solved</span></td>
-                                            <?php else : ?>
+                                            <?php else: ?>
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?></p>
                                     </div>
+                                    <div>
+                                <?php if (
+                                	$position === 'CEO' ||
+                                	$position === 'IT Employee'
+                                ): ?>
+                                <input type="hidden" id="idTck" value="<?= $data[
+                                	'id'
+                                ] ?> ">
+                                <?php if ($data['status_ticket'] === '0'): ?>
+                                <button id="confirmBtn" data-toggle="modal" data-target="#confirm" class="btn btn-primary btn-icon-split">
+                                <span class="text">Confirm Ticket</span></button>
+                                <?php elseif (
+                                	$data['status_ticket'] === '1'
+                                ): ?>
+                                <input type="hidden" id="solvedBy" value="<?php echo $_SESSION[
+                                	'name'
+                                ]; ?>">
+                                <button id="solvedBtn" data-toggle="modal" data-target="#solved" class="btn btn-success btn-icon-split">
+                                <span class="text">Solved Ticket</span></button>                                
+                                <?php else: ?>      
+                                <a href="deleteTicket.php?id=<?php echo $data[
+                                	'id'
+                                ]; ?>" class="btn btn-danger btn-icon-split">
+                                <span class="text">Delete Ticket</span>
+                                </a>
+                                <?php endif; ?>
+                                <?php endif; ?>
+                                </div>
                                    
                                 </div>
                                 <div class="col-md-6">
                                     <div class="media">
                                         <label>Name</label>
-                                        <p><?= $data['creator']; ?></p>
+                                        <p><?= $data['creator'] ?></p>
                                     </div>
                                     <div class="media">
                                         <label>Id</label>
@@ -407,31 +449,18 @@ mark {
                                     </div>
                                     <div class="media">
                                         <label>Date</label>
-                                        <p><?= $data['date_ticket']; ?></p>
+                                        <p><?= $data['date_ticket'] ?></p>
                                     </div>
                                 </div>
                                 
-                                <?php if($position === "CEO" || $position === "IT Employee") : ?>
-                                <input type="hidden" id="idTck" value="<?= $data['id'] ?> ">
-                                <?php if($data['status_ticket'] === "0" ) : ?>
-                                <button id="confirmBtn" data-toggle="modal" data-target="#confirm" class="btn btn-primary btn-icon-split">
-                                <span class="text">Confirm</span></button>
-                                <?php elseif($data['status_ticket'] === "1") : ?>
-                                <input type="hidden" id="solvedBy" value="<?php echo $_SESSION['name']; ?>">
-                                <button id="solvedBtn" data-toggle="modal" data-target="#solved" class="btn btn-success btn-icon-split">
-                                <span class="text">Solved</span></button>                                
-                                <?php else : ?>      
-                                <button href="#" class="btn btn-danger btn-icon-split">
-                                <span class="text">Delete</span>
-                                </button>
-                                <?php endif; ?>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="about-avatar">
-                            <img src="img/<?php echo $data['ticket_image']; ?> " width="500" height="500" >
+                            <img src="img/<?php echo $data[
+                            	'ticket_image'
+                            ]; ?> " width="500" height="500" >
                         </div>
                     </div>
                 </div>

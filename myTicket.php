@@ -270,7 +270,7 @@ if(isset($_POST["submit"])){
                                         
                                     </tbody>
                                 </table>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTicket">Report Problem</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTicket">Add Ticket</button>
                             </div>
                         </div>
                     </div>

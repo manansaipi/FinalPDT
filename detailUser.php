@@ -1,18 +1,27 @@
-<?php  
+<?php
 session_start();
-if (!isset($_SESSION["login"])){
-  header("location: login.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+	header('location: login.php');
+	exit();
 }
 require 'functions.php';
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
 $position = $_SESSION['position'];
-$data = query("SELECT * FROM users");
+$data = query('SELECT * FROM users');
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
-$id2 = ($_GET["id"]);
+$id2 = $_GET['id'];
 $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
+
+if (isset($_POST['deleteButton'])) {
+	if (deleteUser($_POST) > 0) {
+		echo "  <script>
+                alert('TUser Deleted!')
+                document.location.href = 'tableEmplyoo.php'
+            </script>";
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +34,25 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
     history.scrollRestoration = "manual";
     window.onload = scrollToBottom;
 </script>
-
+<link rel="stylesheet" href=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity=
+"sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+        crossorigin="anonymous">
+  
+    <!-- Import jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity=
+"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous">
+    </script>
+      
+    <script src=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity=
+"sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous">
+    </script>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -115,9 +142,11 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
             <!-- Nav Item - Pages Collapse Menu -->
             
             <!-- Nav Item - Charts -->
-            <?php foreach ($id as $id) : ?>
+            <?php foreach ($id as $id): ?>
             <li class="nav-item">
-                <a class="nav-link" href="profileUpdate.php?id=<?= $id["id"]; ?>">
+                <a class="nav-link" href="profileUpdate.php?id=<?= $id[
+                	'id'
+                ] ?>">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
             </li>
@@ -172,14 +201,18 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                             
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION[
+                                	'name'
+                                ]; ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/<?= $_SESSION['image']; ?>">
+                                    src="img/<?= $_SESSION['image'] ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"] ?>">
+                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id[
+                                	'id'
+                                ] ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -331,25 +364,36 @@ mark {
                     <div class="col-lg-6">
                         <div class="about-text go-to">
                             <h3 class="dark-color">About Me</h3>
-                            <h6 class="theme-color lead"><?php echo $data2['position'] ?></h6>
-                            <p><?= $data2['bio']; ?></p>
+                            <h6 class="theme-color lead"><?php echo $data2[
+                            	'position'
+                            ]; ?></h6>
+                            <p><?= $data2['bio'] ?></p>
                             <div class="row about-list">
                                 <div class="col-md-6">
                                 <div class="media">
                                         <label>Name</label>
-                                        <p><?= $data2['name']; ?></p>
+                                        <p><?= $data2['name'] ?></p>
                                     </div>
                                     <div class="media">
                                         <label>Position</label>
-                                        <p><?php echo $data2["position"]; ?></p>
+                                        <p><?php echo $data2['position']; ?></p>
                                     </div>
                                     <div class="media">
                                         <label>Birthday</label>
-                                        <p><?= $data2['birthday']; ?></p>
+                                        <p><?= $data2['birthday'] ?></p>
                                     </div>
                                     <div class="media">
                                         <label>Age</label>
-                                        <p><?= $data2['age']; ?> Yr</p>
+                                        <p><?= $data2['age'] ?> Yr</p>
+                                    </div>
+                                    <div class="media">
+                                    <?php if ($position === 'CEO'): ?>
+                                <a href="editBy.php?id=<?= $id[
+                                	'id'
+                                ] ?>"><button type="button" class="btn btn-primary">Edit User</button></a>
+                                
+                                <?php endif; ?>
+                                    
                                     </div>
                                    
                                 </div>
@@ -364,22 +408,38 @@ mark {
                                     </div>
                                     <div class="media">
                                         <label>Instagram</label>
-                                        <p>@<?php echo clean($data2['instagram']); ?></p>
+                                        <p>@<?php echo clean(
+                                        	$data2['instagram']
+                                        ); ?></p>
                                     </div>
                                     <div class="media">
                                         <label>GitHub</label>
-                                        <p>@<?php echo clean($data2['github']); ?></p>
+                                        <p>@<?php echo clean(
+                                        	$data2['github']
+                                        ); ?></p>
+                                    </div>
+                                    <div class="media">
+                                    <?php if ($position === 'CEO'): ?>
+                                    <input type="hidden" id="id" value="<?php echo $data2[
+                                    	'id'
+                                    ]; ?>"/>
+                                    <input type="hidden" id="name" value="<?php echo $data2[
+                                    	'name'
+                                    ]; ?>"/>
+                                <button id="deleteBtn" data-toggle="modal" data-target="#delete" class="btn btn-danger btn-icon-split">
+                                <span class="text">Delete User</span></button> 
+                                <?php endif; ?>
                                     </div>
                                 </div>
-                                <?php if($position === "CEO") : ?>
-                                <a href="editBy.php?id=<?= $id["id"];?>"><button type="button" class="btn btn-primary">Edit Profile</button></a>
-                                <?php endif; ?>
+                                
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="about-avatar">
-                            <img src="img/<?php echo $data2['image']; ?> " width="400" height="500" >
+                            <img src="img/<?php echo $data2[
+                            	'image'
+                            ]; ?> " width="400" height="500" >
                         </div>
                     </div>
                 </div>
@@ -432,6 +492,39 @@ mark {
             </div>
         </div>
     </div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Delet User" below to delete user.</div>
+                <form class="form" action="" method="post" enctype="multipart/form-data">
+                <div class="modal-footer">
+                    <input type="hidden" id="idUsr" name="idUsr">
+                    
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" href="deleteUser.php?id=<?php echo $data2[
+                    	'id'
+                    ]; ?>" name="deleteButtn" id="deleteButton">Delet User</a>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        
+        $('#deleteBtn').click(function () {
+        var text = $("#id").val();
+        document.getElementById("idUsr").value = (text);
+        
+        
+    });
+</script>
     
 
     <!-- Bootstrap core JavaScript-->

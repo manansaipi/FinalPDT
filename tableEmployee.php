@@ -1,14 +1,14 @@
-<?php  
+<?php
 session_start();
-if (!isset($_SESSION["login"])){
-  header("location: login.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+	header('location: login.php');
+	exit();
 }
 require 'functions.php';
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
-$data = query("SELECT * FROM users");
-$data2 = query("SELECT * FROM users");
+$data = query('SELECT * FROM users');
+$data2 = query('SELECT * FROM users');
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
 $position = $_SESSION['position'];
@@ -110,9 +110,11 @@ $position = $_SESSION['position'];
             
 
             <!-- Nav Item - Charts -->
-            <?php foreach ($id as $id) : ?>
+            <?php foreach ($id as $id): ?>
             <li class="nav-item">
-                <a class="nav-link" href="profileUpdate.php?id=<?= $id["id"]; ?>">
+                <a class="nav-link" href="profileUpdate.php?id=<?= $id[
+                	'id'
+                ] ?>">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
             </li>
@@ -163,14 +165,18 @@ $position = $_SESSION['position'];
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION[
+                                	'name'
+                                ]; ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/<?= $_SESSION['image']; ?>">
+                                    src="img/<?= $_SESSION['image'] ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"] ?>">
+                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id[
+                                	'id'
+                                ] ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -221,29 +227,31 @@ $position = $_SESSION['position'];
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <?php foreach( $data as $data ) : ?>
+                                    <?php foreach ($data as $data): ?>
                                         <tr>
-                                            <td><?= $data["id"]?></td>
-                                            <td><?= $data["name"]?></td>
-                                            <td><?= $data["position"]?></td>
-                                            <td><?= $data["country"]?></td>
-                                            <td><?= $data["age"]?></td>
+                                            <td><?= $data['id'] ?></td>
+                                            <td><?= $data['name'] ?></td>
+                                            <td><?= $data['position'] ?></td>
+                                            <td><?= $data['country'] ?></td>
+                                            <td><?= $data['age'] ?></td>
                                     
                                             <td style="text-align: center;">
-                                            <a href="detailUser.php?id=<?= $data["id"];?>" class="btn btn-info btn-icon-split btn-sm">
+                                            <a href="detailUser.php?id=<?= $data[
+                                            	'id'
+                                            ] ?>" class="btn btn-info btn-icon-split btn-sm">
                                             <span class="text">Detail</span>
                                             </a>
-                                            <?php if($position === "CEO") : ?>
-                                            <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">
+                                            <?php if ($position === 'CEO'): ?>
+                                            <a href="editBy.php?id=<?= $data[
+                                            	'id'
+                                            ] ?>" class="btn btn-primary btn-icon-split btn-sm">
                                             <span class="text">Edit</span>
                                             </a>
-                                            <!-- <a href="deleteUser.php?id=<?= $data["id"];?>" data-toggle="modal" data-target="#delete" class="btn btn-danger btn-circle btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                            </a> -->
+                                            
                                             <?php endif; ?>
                                         </td>
                                         </tr>
-                                        <?php endforeach;?>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                                 
@@ -310,7 +318,9 @@ $position = $_SESSION['position'];
                 <div class="modal-body">Select "Delete" below if you want to delete user</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="deleteUser.php?id=<?= $data["id"];?>">Delete</a>
+                    <a class="btn btn-primary" href="deleteUser.php?id=<?= $data[
+                    	'id'
+                    ] ?>">Delete</a>
                 </div>
             </div>
         </div>

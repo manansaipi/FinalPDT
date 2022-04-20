@@ -1,16 +1,16 @@
-<?php  
+<?php
 session_start();
-if (!isset($_SESSION["login"])){
-  header("location: login.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+	header('location: login.php');
+	exit();
 }
 require 'functions.php';
-$seasonId = $_SESSION["id"];
-$position = $_SESSION["position"];
+$seasonId = $_SESSION['id'];
+$position = $_SESSION['position'];
 $id = query("SELECT * FROM users where id = $seasonId");
-// $pos = query("SELECT * FROM users where $posititon = 'CEO"); 
+// $pos = query("SELECT * FROM users where $posititon = 'CEO");
 $image = $_SESSION['image'];
-$name = $_SESSION["name"];
+$name = $_SESSION['name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +37,7 @@ $name = $_SESSION["name"];
 </head>
 
 <body id="page-top">
-<?php foreach( $id as $id ) : ?>
+<?php foreach ($id as $id): ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -101,7 +101,9 @@ $name = $_SESSION["name"];
             
             <li class="nav-item">
             
-                <a class="nav-link" href='profileUpdate.php?id=<?= $id["id"]; ?>'>
+                <a class="nav-link" href='profileUpdate.php?id=<?= $id[
+                	'id'
+                ] ?>'>
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
                    
@@ -156,15 +158,19 @@ $name = $_SESSION["name"];
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION["name"]; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION[
+                                	'name'
+                                ]; ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/<?php echo $_SESSION["image"]; ?>">
+                                    src="img/<?php echo $_SESSION['image']; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 
-                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"]; ?>">
+                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id[
+                                	'id'
+                                ] ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -187,7 +193,7 @@ $name = $_SESSION["name"];
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">
-                            board</h1>
+                            Hallo <?php echo $_SESSION['username']; ?> !</h1>
                         <a href="myTicket.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Report Problem</a>
                     </div>
@@ -202,11 +208,42 @@ $name = $_SESSION["name"];
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            <?php if (
+                                            	$_SESSION['position'] == 'CEO' ||
+                                            	$_SESSION['position'] ==
+                                            		'IT Employee'
+                                            ): ?>
+                                                total number of ticket
+                                            <?php else: ?>
+                                                total of my ticket   
+                                                
+                                            <?php endif; ?> 
+                                                
+                                                
+                                                </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php if (
+                                            	$_SESSION['position'] == 'CEO' ||
+                                            	$_SESSION['position'] ==
+                                            		'IT Employee'
+                                            ): ?>
+                                                <?php
+                                                $data = query(
+                                                	'SELECT * FROM ticket'
+                                                );
+                                                echo sizeof($data);
+                                                ?>
+                                                <?php else: ?>
+                                                <?php
+                                                $name = $_SESSION['name'];
+                                                $data = query(
+                                                	"SELECT * FROM ticket WHERE creator = '$name'"
+                                                );
+                                                echo sizeof($data);
+                                                ?>
+                                                <?php endif; ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -214,17 +251,53 @@ $name = $_SESSION["name"];
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
+                        
+                        
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <?php if (
+                                            	$_SESSION['position'] == 'CEO' ||
+                                            	$_SESSION['position'] ==
+                                            		'IT Employee'
+                                            ): ?>
+                                                total of Waiting ticket
+                                            <?php else: ?>
+                                                total of my waiting ticket    
+                                                
+                                            <?php endif; ?>   
+                                        
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php if (
+                                            	$_SESSION['position'] == 'CEO' ||
+                                            	$_SESSION['position'] ==
+                                            		'IT Employee'
+                                            ): ?>
+                                                <?php
+                                                $data = query(
+                                                	'SELECT * FROM ticket WHERE status_ticket = "0"'
+                                                );
+                                                echo sizeof($data);
+                                                ?>
+                                            <?php else: ?>
+                                                <?php
+                                                $id = $_SESSION['id'];
+                                                $data = query(
+                                                	"SELECT * FROM ticket WHERE status_ticket = '0' and id_user = '$id'"
+                                                );
+                                                echo sizeof($data);
+                                                ?>    
+                                                
+                                            <?php endif; ?>       
+
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -237,18 +310,53 @@ $name = $_SESSION["name"];
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            <?php if (
+                                            	$_SESSION['position'] == 'CEO' ||
+                                            	$_SESSION['position'] ==
+                                            		'IT Employee'
+                                            ): ?>
+                                                total of in progress tickets 
+                                            <?php else: ?>
+                                                total of my in progress ticket 
+                                                
+                                            <?php endif; ?>     
+
+
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    <?php if (
+                                                    	$_SESSION['position'] ==
+                                                    		'CEO' ||
+                                                    	$_SESSION['position'] ==
+                                                    		'IT Employee'
+                                                    ): ?>
+                                                <?php
+                                                $data = query(
+                                                	'SELECT * FROM ticket WHERE status_ticket = "1"'
+                                                );
+                                                echo sizeof($data);
+                                                ?>
+                                            <?php else: ?>
+                                                <?php
+                                                $id = $_SESSION['id'];
+                                                $data = query(
+                                                	"SELECT * FROM ticket WHERE status_ticket = '1' and id_user = '$id'"
+                                                );
+                                                echo sizeof($data);
+                                                ?>    
+                                                
+                                            <?php endif; ?>     
+                                                    </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="progress progress-sm mr-2">
+                                                    
                                                         <div class="progress-bar bg-info" role="progressbar"
                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -262,16 +370,49 @@ $name = $_SESSION["name"];
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <?php if (
+                                            	$_SESSION['position'] == 'CEO' ||
+                                            	$_SESSION['position'] ==
+                                            		'IT Employee'
+                                            ): ?>
+                                                Total of solved tickets 
+                                            <?php else: ?>
+                                                total of my solved ticket
+                                                
+                                            <?php endif; ?>  </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php if (
+                                            	$_SESSION['position'] == 'CEO' ||
+                                            	$_SESSION['position'] ==
+                                            		'IT Employee'
+                                            ): ?>
+                                                <?php
+                                                $data = query(
+                                                	'SELECT * FROM ticket WHERE status_ticket = "2"'
+                                                );
+                                                echo sizeof($data);
+                                                ?>
+                                            <?php else: ?>
+                                                <?php
+                                                $id = $_SESSION['id'];
+                                                $data = query(
+                                                	"SELECT * FROM ticket WHERE status_ticket = '2' and id_user = '$id'"
+                                                );
+                                                echo sizeof($data);
+                                                ?>    
+                                                
+                                            <?php endif; ?>        
+
+
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -333,7 +474,7 @@ $name = $_SESSION["name"];
             </div>
         </div>
     </div>
-    <?php endforeach ?>
+    <?php endforeach; ?>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

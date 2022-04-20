@@ -388,7 +388,7 @@ mark {
                                     </div>
                                     <div class="media">
                                     <?php if ($position === 'CEO'): ?>
-                                <a href="editBy.php?id=<?= $id[
+                                <a href="editBy.php?id=<?= $data2[
                                 	'id'
                                 ] ?>"><button type="button" class="btn btn-primary">Edit User</button></a>
                                 

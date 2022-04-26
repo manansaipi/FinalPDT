@@ -1,0 +1,76 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 26, 2022 at 04:21 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `final_pdt`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(20) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `username` varchar(16) NOT NULL,
+  `bio` varchar(300) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `position` varchar(16) NOT NULL,
+  `instagram` varchar(20) NOT NULL,
+  `github` varchar(30) NOT NULL,
+  `country` varchar(20) NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `age` int(11) NOT NULL,
+  `image` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `username`, `bio`, `password`, `position`, `instagram`, `github`, `country`, `birthday`, `age`, `image`) VALUES
+(262021001, 'Abdul Mannan Saipi', 'manansaipi', 'As the CEO of BenTeng, I&#039;m responsible for running all facets of the business.\r\nI have a proven executive management track record and over 20 years of experience driving sales\r\ngrowth in the technology industry.', '$2y$10$IbdAr1pNJkq1H.qx6csAtu6nP38C/M5GyOgQECbxoVjDcokRILw3u', 'CEO', 'manasaipi', 'manansaipi', 'Indonesia', '2003-04-26', 18, '625bbcdcef6a4.jpg'),
+(262021003, 'Dave Mike', 'dave', 'My name is Dave Mike and I am a Junior Web Developer for benTeng. I am an accomplished coder and programmer, and I enjoy using my skills to contribute to the exciting technological advances that happen every day at Oswald Tech. I graduated from the California Institute of Technology in 2016', '$2y$10$VDq8VN.pE3WDS63GYkG8nekKCkbvOLyyePnIM5Nvi7Hd07Tn/vofK', 'IT Employee', 'dave', 'dave', 'Italy', '0000-00-00', 23, 'profileimage.jpg'),
+(262021004, 'John Wick', 'john', 'My name is John Wick and I am a Junior Web Developer for benTeng. I am an accomplished coder and programmer, and I enjoy using my skills to contribute to the exciting technological advances that happen every day at Oswald Tech. I graduated from the California Institute of Technology in 2016', '$2y$10$z2eiX3HdJ.932GXA7qvE7Ozw.YbzanVnCUw5f8neORTmy3atvB9wi', 'IT Employee', 'john', 'john', 'Franch', '2001-04-01', 21, '62504d5294c7f.jpg'),
+(262021005, 'Akha Muhamad Balasi', 'akha', '', '$2y$10$KAolrAHRhYgzKd6XZx9ZuOnxKUgEUWH/lsT1kMz3QUFZ8hqma/PB6', 'CEO', '0', '', ' Indonesia', NULL, 18, '625651bed22fd.jpg'),
+(262021006, 'Nicolas Ali', 'nicholas', 'As CEO', '$2y$10$h9zgrBQD5xwvioRZS45JTObw7X5Vc4bQ7ANuKmryiP9XMXDcFk2ni', 'CEO', 'nicholas', 'nicholas', 'Indonesia', '2022-04-19', 18, 'profileimage.jpg'),
+(262021007, 'Azka Zaviar Harindra', 'azka', '', '$2y$10$xjSyVd9T/iAWdF1BliLKU.U7uGj.o/f9TaHfnzPgYUcR.DyMQ9Hlm', 'CEO', '0', '', ' Indonesia', '0000-00-00', 18, 'profileimage.jpg'),
+(262021008, 'Jayadi Hasilton', 'jayadi', 'My name is Jayadi Hasilton and I am a Junior Web Developer for Oswald Technologies. I am an accomplished coder and programmer, and I enjoy using my skills to contribute to the exciting technological advances that happen every day at Oswald Tech. I graduated from the California Institute of Technolog', '$2y$10$ZonDR/Pae9.yLXTaXa7Bm.9cW36aizeN5EndA.wseAs294Hnr3xSO', 'IT Employee', 'jayadi', 'jayadi', 'Brazil', '1987-01-12', 29, 'profileimage.jpg'),
+(262021009, 'Michael Jordan', 'michael', 'Test', '$2y$10$/5HhtW6EBRoLwwK9qMmGOO0m.8.DLvAMZkVK1HBFEkQKNSh4YbfAq', 'Employee', 'michael', '@michael', 'United States', '1963-02-17', 59, 'profileimage.jpg'),
+(262021010, 'Chris Ronaldinho', 'chris', 'My name is Chris Ronaldinho and I am a Junior Web Developer for Oswald Technologies. I am an accomplished coder and programmer, and I enjoy using my skills to contribute to the exciting technological advances that happen every day at Oswald Tech. I graduated from the California Institute of Technolo', '$2y$10$yyq3CvSxcZk.Nd7lSGU.U.VnGua.73zbLlTv6slhBTX1/a1qTpe8O', 'IT Employee', 'chris', 'chris', 'Portugal', '1985-02-05', 37, 'profileimage.jpg'),
+(262021012, 'Nayimar Maturee', 'nayimar', 'As an employee I&#039;ll do everything for this company', '$2y$10$cu922/HGC/cGfXETJ.98FOiYNjxEhUm3H.FgSLaK9NQtc6FBYLKpG', 'Employee', 'nayimar', 'nayimar', 'Brazil', '1992-02-05', 30, 'profileimage.jpg'),
+(262021018, 'Edien Haizard', 'edien', 'My name is Edien Haizard and I am a Junior Web Developer for benTeng. I am an accomplished coder and programmer, and I enjoy using my skills to contribute to the exciting technological advances that happen every day at Oswald Tech. I graduated from the California Institute of Technology in 2016', '$2y$10$1eAKTrv1Rl4r32iPqASQyuXFOEwYdNyYR70iOGaN9tMxjzhC73N7W', 'Employee', 'edienhzrd', 'edienhzrd', 'Belgium', '1991-01-07', 31, 'profileimage.jpg'),
+(262021028, 'Ucup P Dete', 'ucupfinal', 'I&#039;m a new employee here!', '$2y$10$QZKmoz7bH3CSPfwf01v68.uE60qjQ86cTZnlKsVhvFRdWp2ycwosa', 'IT Employee', 'ucup', 'ucup', 'Indonesia', '2022-03-31', 19, '6266b3141e0f1.png');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262021029;
+COMMIT;

@@ -1,0 +1,65 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 26, 2022 at 04:22 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `final_pdt`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ticket`
+--
+
+CREATE TABLE `ticket` (
+  `id` int(11) NOT NULL,
+  `ticket_title` varchar(16) NOT NULL,
+  `date_ticket` date DEFAULT NULL,
+  `creator` varchar(20) NOT NULL,
+  `desc_ticket` varchar(100) NOT NULL,
+  `status_ticket` int(11) NOT NULL,
+  `ticket_image` varchar(300) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `solved_by` varchar(30) DEFAULT NULL,
+  `feedback` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ticket`
+--
+
+INSERT INTO `ticket` (`id`, `ticket_title`, `date_ticket`, `creator`, `desc_ticket`, `status_ticket`, `ticket_image`, `id_user`, `solved_by`, `feedback`) VALUES
+(20220011, 'Fan', '2022-04-18', 'Chris Ronaldinho', 'The fan is not working on the third floor', 1, '625d7de9c4ba8.png', 262021010, '', ''),
+(20220022, 'Wifi', '2022-04-25', 'Ucup P Dete', 'wifi is lagging on building 1', 2, '6266a45f1c71f.png', 262021028, 'Abdul Mannan Saipi', 'now you can use your laptop again ^^ thank you'),
+(20220027, 'mouse', '2022-04-26', 'Ucup P Dete', 'mouse is can\'t connect to the laptop', -1, '6267f846757b6.jpg', 262021028, '', '');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `ticket`
+--
+ALTER TABLE `ticket`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `ticket`
+--
+ALTER TABLE `ticket`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20220028;
+COMMIT;

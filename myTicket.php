@@ -1,8 +1,8 @@
-<?php  
+<?php
 session_start();
-if (!isset($_SESSION["login"])){
-  header("location: login.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+	header('location: login.php');
+	exit();
 }
 require 'functions.php';
 $image = $_SESSION['image'];
@@ -12,13 +12,12 @@ $name = $_SESSION['name'];
 $data = query("SELECT * FROM ticket WHERE creator = '$name'");
 $id = query("SELECT * FROM users where id = $seasonId");
 
-
-if(isset($_POST["submit"])){
-    if(addTicket($_POST) > 0 ){
-        echo "<script>alert('Ticket added !');document.location.href = 'myTicket.php';</script>";
-    } else {
-        echo "<script>alert('erorr!'); document.location.href = 'index.php';</script>";
-    }
+if (isset($_POST['submit'])) {
+	if (addTicket($_POST) > 0) {
+		echo "<script>alert('Ticket added !');document.location.href = 'myTicket.php';</script>";
+	} else {
+		echo "<script>alert('erorr!'); document.location.href = 'index.php';</script>";
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -32,7 +31,7 @@ if(isset($_POST["submit"])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Color Utilities</title>
+    <title>My Ticket</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -54,11 +53,10 @@ if(isset($_POST["submit"])){
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">PRESUNIV</div>
             </a>
 
             <!-- Divider -->
@@ -114,10 +112,10 @@ if(isset($_POST["submit"])){
             
 
             <!-- Nav Item - Charts -->
-            <?php foreach ($id as $id) : ?>
+            <?php foreach ($id as $id): ?>
                 <li class="nav-item">
             
-            <a class="nav-link" href='profileUpdate.php?id=<?= $id["id"]; ?>'>
+            <a class="nav-link" href='profileUpdate.php?id=<?= $id['id'] ?>'>
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 <span>Profile</span></a>
                
@@ -171,14 +169,18 @@ if(isset($_POST["submit"])){
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION[
+                                	'name'
+                                ]; ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/<?= $_SESSION['image']; ?>">
+                                    src="img/<?= $_SESSION['image'] ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profileUpdate.php?id<?= $id["id"] ?>">
+                                <a class="dropdown-item" href="profileUpdate.php?id<?= $id[
+                                	'id'
+                                ] ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -235,29 +237,43 @@ if(isset($_POST["submit"])){
                                     </tfoot>
                                     <tbody>
                                         <?php global $number; ?>
-                                        <?php foreach( $data as $data ) : ?>
+                                        <?php foreach ($data as $data): ?>
                                         <tr >
-                                            <td><?= $number += 1; ?></td>
-                                            <td><?= $data["id"]?></td>
-                                            <td><?= $data["ticket_title"]?></td>
-                                            <td><?= $data["date_ticket"]?></td>
-                                            <?php if($data['status_ticket'] == 0) : ?>
+                                            <td><?= $number += 1 ?></td>
+                                            <td><?= $data['id'] ?></td>
+                                            <td><?= $data[
+                                            	'ticket_title'
+                                            ] ?></td>
+                                            <td><?= $data['date_ticket'] ?></td>
+                                            <?php if (
+                                            	$data['status_ticket'] == 0
+                                            ): ?>
                                             <td><span class="badge badge-warning m-0">Waiting</span></td>
-                                            <?php elseif($data['status_ticket'] == 1) : ?>
+                                            <?php elseif (
+                                            	$data['status_ticket'] == 1
+                                            ): ?>
                                             <td><span class="badge badge-info m-0">In Progres</span></td>
-                                            <?php elseif($data['status_ticket'] == 2) : ?>
+                                            <?php elseif (
+                                            	$data['status_ticket'] == 2
+                                            ): ?>
                                             <td><span class="badge badge-success m-0">Success</span></td>
-                                            <?php else : ?>
+                                            <?php else: ?>
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?>
                                             <td style="text-align: center;">
                                             
-                                            <?php if($data['status_ticket'] != 2) : ?>
-                                            <a href="detailMyTicket.php?id=<?php echo $data['id']; ?>" class="btn btn-info btn-icon-split btn-sm">
+                                            <?php if (
+                                            	$data['status_ticket'] != 2
+                                            ): ?>
+                                            <a href="detailMyTicket.php?id=<?php echo $data[
+                                            	'id'
+                                            ]; ?>" class="btn btn-info btn-icon-split btn-sm">
                                             <span class="text">Detail</span>
                                             </a> 
-                                            <?php else : ?>
-                                            <a href="detailMyTicket.php?id=<?php echo $data['id']; ?>" class="btn btn-success btn-icon-split btn-sm">
+                                            <?php else: ?>
+                                            <a href="detailMyTicket.php?id=<?php echo $data[
+                                            	'id'
+                                            ]; ?>" class="btn btn-success btn-icon-split btn-sm">
                                             <span class="text">See Feedback</span>
                                             </a> 
                                             <?php endif; ?> 
@@ -266,7 +282,7 @@ if(isset($_POST["submit"])){
                                         </td>
                                         </tr>
                                         
-                                        <?php endforeach;?>
+                                        <?php endforeach; ?>
                                         
                                     </tbody>
                                 </table>
@@ -341,10 +357,16 @@ if(isset($_POST["submit"])){
                                 <div class="form-group">
                                 <label><b>Complaint</b></label>    
                                 <input class="form-control" type="text" name="ticket_title" />       
-                                <input style="display: none;" type="date" value="<?php echo date('Y-m-d'); ?>" name="date_ticket">  
-                                <input type="hidden" name="creator" value="<?php echo $id['name']; ?>">     
+                                <input style="display: none;" type="date" value="<?php echo date(
+                                	'Y-m-d'
+                                ); ?>" name="date_ticket">  
+                                <input type="hidden" name="creator" value="<?php echo $id[
+                                	'name'
+                                ]; ?>">     
                                 <input type="hidden" name="status_ticket" value="0">
-                                <input type="hidden" name="id_user" value="<?php echo $id['id'] ?>" />
+                                <input type="hidden" name="id_user" value="<?php echo $id[
+                                	'id'
+                                ]; ?>" />
                                 <input type="hidden" name="solved_by" valu=" ">
                                 <input type="hidden" name="feedback" valu=" ">
                            </div> 

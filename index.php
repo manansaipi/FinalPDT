@@ -158,11 +158,11 @@ $name = $_SESSION['name'];
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION[
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $id[
                                 	'name'
                                 ]; ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/<?php echo $_SESSION['image']; ?>">
+                                    src="img/<?php echo $id['image']; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -193,7 +193,7 @@ $name = $_SESSION['name'];
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">
-                            Hallo <?php echo $_SESSION['username']; ?> !</h1>
+                            Hallo <?php echo $id['username']; ?> !</h1>
                         <a href="myTicket.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Report Problem</a>
                     </div>

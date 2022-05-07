@@ -1,29 +1,28 @@
-<?php  
+<?php
 session_start();
-if (!isset($_SESSION["login"])){
-  header("location: login.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+	header('location: login.php');
+	exit();
 }
 require 'functions.php';
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
-$data = query("SELECT * FROM users");
+$data = query('SELECT * FROM users');
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
 
-$id2 = ($_GET["id"]);
+$id2 = $_GET['id'];
 
 $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
-    if(isset($_POST["submit"])){
-        if(updateProfile2($_POST) > 0 ){
-            echo "  <script>
+if (isset($_POST['submit'])) {
+	if (updateProfile2($_POST) > 0) {
+		echo "  <script>
                         alert('Data has been saved !'); document.location.href = 'tableEmployee.php';
                     </script>";
-
-        } else {
-            echo "<script>alert('erorr!') document.location.href = 'tableEmployee.php'</script>";
-        }
-    }
+	} else {
+		echo "<script>alert('erorr!') document.location.href = 'tableEmployee.php'</script>";
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,9 +121,11 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
             <!-- Nav Item - Pages Collapse Menu -->
             
             <!-- Nav Item - Charts -->
-            <?php foreach ($id as $id) : ?>
+            <?php foreach ($id as $id): ?>
             <li class="nav-item">
-                <a class="nav-link" href="profileUpdate.php?id=<?= $id["id"]; ?>">
+                <a class="nav-link" href="profileUpdate.php?id=<?= $id[
+                	'id'
+                ] ?>">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
             </li>
@@ -175,14 +176,18 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $id[
+                                	'name'
+                                ]; ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/<?= $_SESSION['image']; ?>">
+                                    src="img/<?= $id['image'] ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"] ?>">
+                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id[
+                                	'id'
+                                ] ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -233,26 +238,32 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <?php foreach( $data as $data ) : ?>
+                                    <?php foreach ($data as $data): ?>
                                         <tr >
-                                            <td><?= $data["id"]?></td>
-                                            <td><?= $data["name"]?></td>
-                                            <td><?= $data["position"]?></td>
-                                            <td><?= $data["country"]?></td>
-                                            <td><?= $data["age"]?></td>
+                                            <td><?= $data['id'] ?></td>
+                                            <td><?= $data['name'] ?></td>
+                                            <td><?= $data['position'] ?></td>
+                                            <td><?= $data['country'] ?></td>
+                                            <td><?= $data['age'] ?></td>
                                             <td style="text-align: center;">
-                                            <a href="detailUser.php?id=<?= $data["id"];?>" class="btn btn-info btn-icon-split btn-sm">
+                                            <a href="detailUser.php?id=<?= $data[
+                                            	'id'
+                                            ] ?>" class="btn btn-info btn-icon-split btn-sm">
                                             <span class="text">Detail</span>
                                             </a>
-                                            <a href="editBy.php?id=<?= $data["id"];?>" class="btn btn-primary btn-icon-split btn-sm">
+                                            <a href="editBy.php?id=<?= $data[
+                                            	'id'
+                                            ] ?>" class="btn btn-primary btn-icon-split btn-sm">
                                             <span class="text">Edit</span>
                                             <!-- </a>
-                                            <a href="deleteUser.php?id=<?= $data["id"];?>" class="btn btn-danger btn-circle btn-sm">
+                                            <a href="deleteUser.php?id=<?= $data[
+                                            	'id'
+                                            ] ?>" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
                                             </a> -->
                                         </td>
                                         </tr>
-                                        <?php endforeach;?>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                                 
@@ -291,14 +302,18 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                     <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
                     
                       <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;"></span>
-                      <img src="img/<?php echo $data2["image"]; ?>" width="140" height="140">
+                      <img src="img/<?php echo $data2[
+                      	'image'
+                      ]; ?>" width="140" height="140">
                     </div>
                   </div>
                 </div>
                 <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                   <div class="text-center text-sm-left mb-2 mb-sm-0">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $data2["name"]; ?></h4>
-                    <p class="mb-0">@<?php echo $data2["username"];?></p>
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $data2[
+                    	'name'
+                    ]; ?></h4>
+                    <p class="mb-0">@<?php echo $data2['username']; ?></p>
                     <div class="text-muted"><small></small></div>
                     <div class="mt-2">     
                     <form class="form" action="" method="post" enctype="multipart/form-data">                
@@ -308,7 +323,9 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                     </div>
                   </div>
                   <div class="text-center text-sm-right">
-                    <span class="badge badge-secondary"><?php echo $data2["position"]; ?></span>
+                    <span class="badge badge-secondary"><?php echo $data2[
+                    	'position'
+                    ]; ?></span>
                     <div class="text-muted"><small></small></div>
                   </div>
                 </div>
@@ -325,26 +342,42 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                           <div class="col">
                             <div class="form-group">
                               <label>Full Name</label>
-                              <input class="form-control" type="text" name="name" placeholder="Full Name" value="<?php echo$data2["name"] ?>">
+                              <input class="form-control" type="text" name="name" placeholder="Full Name" value="<?php echo $data2[
+                              	'name'
+                              ]; ?>">
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group">
                               <label>Username</label>
-                              <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $data2["username"]; ?>">
-                              <?php if($checkUsername) : ?>
+                              <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $data2[
+                              	'username'
+                              ]; ?>">
+                              <?php if ($checkUsername): ?>
                               <p style="color: red; font-style: italic;">Username already taken !</p>
                               <?php endif; ?>
-                              <input type="hidden" name="id" value="<?= $data2["id"] ?>">
-                              <input type="hidden" name="oldImage" id="oldImage" value="<?= $data2["image"] ?>">
-                              <input type="hidden" name="username2" id="oldImage" value="<?= $data2["username"] ?>">
-                              <input type="hidden" name="position" id="position" value="<?= $data2["position"] ?>">
+                              <input type="hidden" name="id" value="<?= $data2[
+                              	'id'
+                              ] ?>">
+                              <input type="hidden" name="oldImage" id="oldImage" value="<?= $data2[
+                              	'image'
+                              ] ?>">
+                              <input type="hidden" name="username2" id="oldImage" value="<?= $data2[
+                              	'username'
+                              ] ?>">
+                              <input type="hidden" name="position" id="position" value="<?= $data2[
+                              	'position'
+                              ] ?>">
                             </div>
                           </div>
                         </div>
                         <label for="position">Position :</label>
                                 <select name="position" id="position" >
-                                    <option value="<?php echo $data2["position"]; ?>"><?php echo $data2["position"]; ?></option>
+                                    <option value="<?php echo $data2[
+                                    	'position'
+                                    ]; ?>"><?php echo $data2[
+	'position'
+]; ?></option>
                                     <option value="CEO">CEO</option>
                                     <option value="IT Employee">IT Employee</option>
                                     <option value="Employee">Employee</option>
@@ -354,7 +387,9 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                             <div class="form-group">
                             <label for="country">Country</label><span style="color: red !important; display: inline; float: none;"></span> 
                             <select id="country" name="country" class="form-control" >
-            <option value="<?php echo $data2['country']; ?>"><?php echo $data2['country']; ?></option>
+            <option value="<?php echo $data2['country']; ?>"><?php echo $data2[
+	'country'
+]; ?></option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Åland Islands">Åland Islands</option>
             <option value="Albania">Albania</option>
@@ -602,7 +637,9 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
         </select>
         <label for="age">Age</label><span style="color: red !important; display: inline; float: none;">*</span>      
         <select id="age" name="age" class="form-control" >
-            <option value="<?php echo $data2['age']; ?>"><?php echo $data2['age']; ?></option>
+            <option value="<?php echo $data2['age']; ?>"><?php echo $data2[
+	'age'
+]; ?></option>
             <option value="10">10</option>
             <option value="11">11</option>
             <option value="12">12</option>
@@ -638,13 +675,17 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                           <div class="col">
                             <div class="form-group">
                               <label>Instagram</label>
-                              <input class="form-control" type="text" name="instagram" placeholder="Instagram" value="<?php echo ($data2['instagram']) ?>">                        
+                              <input class="form-control" type="text" name="instagram" placeholder="Instagram" value="<?php echo $data2[
+                              	'instagram'
+                              ]; ?>">                        
                            </div>         
                           </div>
                           <div class="col">
                             <div class="form-group">
                               <label>GitHub</label>      
-                              <input class="form-control" type="text" name="github" placeholder="GitHub" value="<?php echo clean($data2['github']); ?>">                            
+                              <input class="form-control" type="text" name="github" placeholder="GitHub" value="<?php echo clean(
+                              	$data2['github']
+                              ); ?>">                            
                             </div>
                           </div>
                         </div>
@@ -652,7 +693,9 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                           <div class="col">
                             <div class="form-group">
                             <label for="birthday">Birthday:</label>
-                            <input type="date" id="birthday" value="<?php echo $data2['birthday']; ?>" name="birthday">
+                            <input type="date" id="birthday" value="<?php echo $data2[
+                            	'birthday'
+                            ]; ?>" name="birthday">
                             </div>
                           </div>
                         </div>
@@ -660,7 +703,9 @@ $data2 = query("SELECT * FROM users WHERE id = $id2")[0];
                           <div class="col">
                             <div class="form-group">
                               <label>About</label>
-                              <textarea class="form-control" rows="5" name="bio" placeholder="My Bio"><?php echo $data2['bio']; ?></textarea>
+                              <textarea class="form-control" rows="5" name="bio" placeholder="My Bio"><?php echo $data2[
+                              	'bio'
+                              ]; ?></textarea>
                             </div>
                           </div>
                         </div>

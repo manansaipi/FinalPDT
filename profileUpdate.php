@@ -1,27 +1,28 @@
-<?php  
+<?php
 session_start();
-if (!isset($_SESSION["login"])){
-  header("location: login.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+	header('location: login.php');
+	exit();
 }
 require 'functions.php';
-$position = $_SESSION["position"];
+$position = $_SESSION['position'];
 $country = $_SESSION['country'];
-$seasonId = $_SESSION["id"];
+$seasonId = $_SESSION['id'];
 $_SESSION['image'];
-$_SESSION["name"];
-$id = ($_GET["id"]);
-$idUser = query("SELECT * FROM users where id = $seasonId"); 
-$data = query("SELECT id, name, username, position, country, age, image FROM users WHERE id = $id")[0];
+$_SESSION['name'];
+$id = $_GET['id'];
+$idUser = query("SELECT * FROM users where id = $seasonId");
+$data = query(
+	"SELECT id, name, username, position, country, age, image FROM users WHERE id = $id"
+)[0];
 
-  if(isset($_POST["submit"])){
-      if(updateProfile($_POST) > 0 ){
-          echo "<script>alert('Updae profile succes !');document.location.href = 'index.php';</script>";
-      } else {
-          echo "<script>alert('erorr!'); document.location.href = 'index.php';</script>";
-      }
-  }
-
+if (isset($_POST['submit'])) {
+	if (updateProfile($_POST) > 0) {
+		echo "<script>alert('Updae profile succes !');document.location.href = 'index.php';</script>";
+	} else {
+		echo "<script>alert('erorr!'); document.location.href = 'index.php';</script>";
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +49,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
 </head>
 
 <body id="page-top">
-<?php foreach( $idUser as $id ) : ?>
+<?php foreach ($idUser as $id): ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -114,7 +115,9 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
             
             <!-- Nav Item - Charts -->
             <li class="nav-item active">
-                <a class="nav-link" href="profileUpdate.php?id=<?= $id["id"]; ?>">
+                <a class="nav-link" href="profileUpdate.php?id=<?= $id[
+                	'id'
+                ] ?>">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
             </li>
@@ -169,14 +172,18 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $id[
+                                	'name'
+                                ]; ?></span>
                                 <img class="img-profile rounded-circle"
-                                src="img/<?php echo $_SESSION["image"]; ?>">
+                                src="img/<?php echo $id['image']; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id["id"]; ?>">
+                                <a class="dropdown-item" href="profileUpdate.php?id=<?= $id[
+                                	'id'
+                                ] ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -217,15 +224,19 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                   <div class="mx-auto" style="width: 140px;">
                     <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
                       <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">
-                      <img src="img/<?php echo $_SESSION["image"]; ?>" width="140" height="140">
+                      <img src="img/<?php echo $id[
+                      	'image'
+                      ]; ?>" width="140" height="140">
                       </span>
                     </div>
                   </div>
                 </div>
                 <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                   <div class="text-center text-sm-left mb-2 mb-sm-0">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $_SESSION['name']; ?></h4>
-                    <p class="mb-0">@<?php echo $_SESSION['username']; ?></p>
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $id[
+                    	'name'
+                    ]; ?></h4>
+                    <p class="mb-0">@<?php echo $id['username']; ?></p>
                     <div class="text-muted"><small></small>
                   </div>
                   <form class="form" action="" method="post" enctype="multipart/form-data">
@@ -236,7 +247,9 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                     </div>
                   </div>
                   <div class="text-center text-sm-right">
-                    <span class="badge badge-secondary"><?php echo $_SESSION['position']; ?></span>
+                    <span class="badge badge-secondary"><?php echo $id[
+                    	'position'
+                    ]; ?></span>
                     <div class="text-muted"><small></small></div>
                   </div>
                 </div>
@@ -253,19 +266,29 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                           <div class="col">
                             <div class="form-group">
                               <label>Full Name</label>
-                              <input class="form-control" type="text" name="name" placeholder="Full Name" value="<?php echo $_SESSION['name'] ?>">                        
+                              <input class="form-control" type="text" name="name" placeholder="Full Name" value="<?php echo $id[
+                              	'name'
+                              ]; ?>">                        
                            </div>         
                           </div>
                           <div class="col">
                             <div class="form-group">
                               <label>Username</label>      
-                              <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $_SESSION['username']; ?>">                            
-                              <?php if($checkUsername) : ?>
+                              <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $id[
+                              	'username'
+                              ]; ?>">                            
+                              <?php if ($checkUsername): ?>
                               <p style="color: red; font-style: italic;">Username already taken !</p>
                               <?php endif; ?>
-                              <input type="hidden" name="id" value="<?= $data["id"] ?>">
-                              <input type="hidden" name="oldImage" id="oldImage" value="<?= $data["image"] ?>">
-                              <input type="hidden" name="position" id="position" value="<?= $data["position"] ?>">
+                              <input type="hidden" name="id" value="<?= $data[
+                              	'id'
+                              ] ?>">
+                              <input type="hidden" name="oldImage" id="oldImage" value="<?= $data[
+                              	'image'
+                              ] ?>">
+                              <input type="hidden" name="position" id="position" value="<?= $data[
+                              	'position'
+                              ] ?>">
                             </div>
                           </div>
                         </div>
@@ -273,7 +296,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <?php if($position === "CEO") : ?>
+                              <?php if ($position === 'CEO'): ?>
                               <label for="position">Position :</label>
                                 <select name="position" id="position" >
                                     <option value="CEO">CEO</option>
@@ -284,7 +307,9 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                                 <div class="form-group">
                                 <label for="country">Country</label>      
         <select id="country" name="country" class="form-control" >
-            <option value="<?php echo $_SESSION['country']; ?>"><?php echo $_SESSION['country']; ?></option>
+            <option value="<?php echo $id['country']; ?>"><?php echo $id[
+	'country'
+]; ?></option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Åland Islands">Åland Islands</option>
             <option value="Albania">Albania</option>
@@ -532,7 +557,9 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
         </select>
         <label for="age">Age</label>      
         <select id="age" name="age" class="form-control" >
-            <option value="<?php echo $_SESSION['age']; ?>"><?php echo $_SESSION['age']; ?></option>
+            <option value="<?php echo $id['age']; ?>"><?php echo $id[
+	'age'
+]; ?></option>
             <option value="10">10</option>
             <option value="11">11</option>
             <option value="12">12</option>
@@ -566,13 +593,17 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                           <div class="col">
                             <div class="form-group">
                               <label>Instagram</label>
-                              <input class="form-control" type="text" name="instagram" placeholder="@instagram" value="<?php echo $_SESSION['instagram'] ?>">                        
+                              <input class="form-control" type="text" name="instagram" placeholder="@instagram" value="<?php echo $id[
+                              	'instagram'
+                              ]; ?>">                        
                            </div>         
                           </div>
                           <div class="col">
                             <div class="form-group">
                               <label>GitHub</label>      
-                              <input class="form-control" type="text" name="github" placeholder="@github" value="<?php echo $_SESSION['github']; ?>">                            
+                              <input class="form-control" type="text" name="github" placeholder="@github" value="<?php echo $id[
+                              	'github'
+                              ]; ?>">                            
                             </div>
                           </div>
                         </div>
@@ -580,7 +611,9 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                           <div class="col">
                             <div class="form-group">
                             <label for="birthday">Birthday:</label>
-                            <input type="date" id="birthday" value="<?php echo $_SESSION['birthday']; ?>" name="birthday">
+                            <input type="date" id="birthday" value="<?php echo $id[
+                            	'birthday'
+                            ]; ?>" name="birthday">
                             </div>
                           </div>
                         </div>
@@ -588,7 +621,9 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                           <div class="col">
                             <div class="form-group">
                               <label>About</label>
-                              <textarea class="form-control" rows="5" name="bio" placeholder="My Bio"><?php echo $_SESSION['bio']; ?></textarea>
+                              <textarea class="form-control" rows="5" name="bio" placeholder="My Bio"><?php echo $id[
+                              	'bio'
+                              ]; ?></textarea>
                             </div>
                           </div>
                         </div>
@@ -608,7 +643,7 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                             <div class="form-group">
                               <label>Current Password</label>
                               <input class="form-control" name="password" type="password" placeholder="Current Password">
-                              <?php if($checkPass) : ?>
+                              <?php if ($checkPass): ?>
                                   <p style="color: red; font-style: italic;">Incorect Password</p>  
                               <?php endif; ?>
                             </div>
@@ -627,16 +662,16 @@ $data = query("SELECT id, name, username, position, country, age, image FROM use
                             <div class="form-group">
                               <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
                               <input class="form-control" type="password" placeholder="Confirm Password" name="password2"></div>
-                              <?php if($checkPassMatch) : ?>
+                              <?php if ($checkPassMatch): ?>
                               <p style="color: red; font-style: italic;">Password not match !</p>
                               <?php endif; ?>
-                            <?php if($checkPass2) : ?>
+                            <?php if ($checkPass2): ?>
                               <p style="color: red; font-style: italic;">Minimum 5 characters and 1 uppercase</p>
                               <?php endif; ?>
-                            <?php if($checkPass3) : ?>
+                            <?php if ($checkPass3): ?>
                               <p style="color: red; font-style: italic;">Minimum 1 uppercase</p>
                               <?php endif; ?>
-                            <?php if($checkPass4) : ?>
+                            <?php if ($checkPass4): ?>
                               <p style="color: red; font-style: italic;">Minimum 5 characters</p>
                               <?php endif; ?>
                           </div>

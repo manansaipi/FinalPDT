@@ -1,25 +1,24 @@
-<?php  
+<?php
 session_start();
-if (!isset($_SESSION["login"])){
-  header("location: login.php");
-  exit;
+if (!isset($_SESSION['login'])) {
+	header('location: login.php');
+	exit();
 }
 require 'functions.php';
 $image = $_SESSION['image'];
 $seasonId = $_SESSION['id'];
 $position = $_SESSION['position'];
-$data = query("SELECT * FROM ticket");
+$data = query('SELECT * FROM ticket');
 $id = query("SELECT * FROM users where id = $seasonId");
 $name = $_SESSION['name'];
 
-
-if(isset($_POST['confirmBtn'])){   
-    if(confirmTicket($_POST) > 0){
-         echo "  <script>
+if (isset($_POST['confirmBtn'])) {
+	if (confirmTicket($_POST) > 0) {
+		echo "  <script>
                 alert('Data Confirm!')
                 document.location.href = 'tableTicket.php'
             </script>";
-    }
+	}
 }
 ?>
 
@@ -119,9 +118,11 @@ if(isset($_POST['confirmBtn'])){
             
 
             <!-- Nav Item - Charts -->
-            <?php foreach ($id as $id) : ?>
+            <?php foreach ($id as $id): ?>
             <li class="nav-item">
-                <a class="nav-link" href="profileUpdate.php?id=<?= $id['id']; ?>">
+                <a class="nav-link" href="profileUpdate.php?id=<?= $id[
+                	'id'
+                ] ?>">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     <span>Profile</span></a>
             </li>
@@ -172,14 +173,18 @@ if(isset($_POST['confirmBtn'])){
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $id[
+                                	'name'
+                                ]; ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/<?= $_SESSION['image']; ?>">
+                                    src="img/<?= $id['image'] ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profileUpdate.php?id<?= $id["id"] ?>">
+                                <a class="dropdown-item" href="profileUpdate.php?id<?= $id[
+                                	'id'
+                                ] ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -229,44 +234,69 @@ if(isset($_POST['confirmBtn'])){
                                     </tfoot>
                                     <tbody>
                                         <?php global $number; ?>
-                                        <?php foreach( $data as $data ) : ?>
+                                        <?php foreach ($data as $data): ?>
                                         <tr >
-                                            <td><?= $number += 1; ?></td>
-                                            <td><?= $data["id"]?></td>
-                                            <td><?= $data["ticket_title"]?></td>
-                                            <td><?= $data["date_ticket"]?></td>
-                                            <?php if($data['status_ticket'] == 0) : ?>
+                                            <td><?= $number += 1 ?></td>
+                                            <td><?= $data['id'] ?></td>
+                                            <td><?= $data[
+                                            	'ticket_title'
+                                            ] ?></td>
+                                            <td><?= $data['date_ticket'] ?></td>
+                                            <?php if (
+                                            	$data['status_ticket'] == 0
+                                            ): ?>
                                             <td><span class="badge badge-warning m-0">Waiting</span></td>
-                                            <?php elseif($data['status_ticket'] == 1) : ?>
+                                            <?php elseif (
+                                            	$data['status_ticket'] == 1
+                                            ): ?>
                                             <td><span class="badge badge-info m-0">In Progres</span></td>
-                                            <?php elseif($data['status_ticket'] == 2) : ?>
+                                            <?php elseif (
+                                            	$data['status_ticket'] == 2
+                                            ): ?>
                                             <td><span class="badge badge-success m-0">Solved</span></td>
-                                            <?php else : ?>
+                                            <?php else: ?>
                                             <td><span class="badge badge-danger m-0">Canceled</span></td>
                                             <?php endif; ?>
                                             
                                             <td style="text-align: center;">
-                                            <?php if($position === "CEO" || $position === "IT Employee") : ?>
-                                            <?php if($data['status_ticket'] === "0" ) : ?>
-                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-primary btn-icon-split btn-sm"> 
+                                            <?php if (
+                                            	$position === 'CEO' ||
+                                            	$position === 'IT Employee'
+                                            ): ?>
+                                            <?php if (
+                                            	$data['status_ticket'] === '0'
+                                            ): ?>
+                                            <a href="detailTicket.php?id=<?= $data[
+                                            	'id'
+                                            ] ?>" class="btn btn-primary btn-icon-split btn-sm"> 
                                             <span class="text">Confirm</span></a>
-                                            <?php elseif($data['status_ticket'] === "1") : ?>
-                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-success btn-icon-split btn-sm">
+                                            <?php elseif (
+                                            	$data['status_ticket'] === '1'
+                                            ): ?>
+                                            <a href="detailTicket.php?id=<?= $data[
+                                            	'id'
+                                            ] ?>" class="btn btn-success btn-icon-split btn-sm">
                                             <span class="text">Solved</span></a>                                
-                                            <?php else : ?>      
-                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-danger btn-icon-split btn-sm">
+                                            <?php else: ?>      
+                                            <a href="detailTicket.php?id=<?= $data[
+                                            	'id'
+                                            ] ?>" class="btn btn-danger btn-icon-split btn-sm">
                                             <span class="text">Delete</span>
                                             </a>
                                             <?php endif; ?>
                                             <?php endif; ?>
-                                            <?php if($position === "Employee") : ?>
-                                            <a href="detailTicket.php?id=<?= $data['id'] ?>" class="btn btn-info btn-icon-split btn-sm">
+                                            <?php if (
+                                            	$position === 'Employee'
+                                            ): ?>
+                                            <a href="detailTicket.php?id=<?= $data[
+                                            	'id'
+                                            ] ?>" class="btn btn-info btn-icon-split btn-sm">
                                             <span class="text">Detail</span></a>
                                             <?php endif; ?>
                                         </td>
                                         </tr>
                                         
-                                        <?php endforeach;?>
+                                        <?php endforeach; ?>
                                         
                                     </tbody>
                                 </table>

@@ -211,11 +211,11 @@ if (isset($_POST['solvedBtn'])) {
                 
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION[
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $id[
                     	'name'
                     ]; ?></span>
                     <img class="img-profile rounded-circle"
-                        src="img/<?= $_SESSION['image'] ?>">
+                        src="img/<?= $id['image'] ?>">
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -422,7 +422,7 @@ mark {
                                 <?php elseif (
                                 	$data['status_ticket'] === '1'
                                 ): ?>
-                                <input type="hidden" id="solvedBy" value="<?php echo $_SESSION[
+                                <input type="hidden" id="solvedBy" value="<?php echo $id[
                                 	'name'
                                 ]; ?>">
                                 <button id="solvedBtn" data-toggle="modal" data-target="#solved" class="btn btn-success btn-icon-split">

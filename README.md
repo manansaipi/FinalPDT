@@ -1,7 +1,7 @@
 # Ticketing App DEMO
 In this demo I log in using Admin role/CEO so I can do anything that normal user or Second Admin can't do. for example Admin can edit the Employee profile or delete them but other users can't doing it. Admin/CEO and Second Admin/IT Employee can solved ticket but Employee can't solved ticket. they can only cretae a ticket and wait for CEO or IT Employee to solved their ticket and then Employee can see feedback from CEO or IT Employee who solved their ticket.
 
-| Feature  | Description | Preview |
+| Name  | Description | Preview |
 | ------------- | ------------- |------------- |
 | Sign up | Users need to Sign up to create an account | ![alt text](./doc/signup.png) |
 | Log in | I log in using Admin role or CEO so i can do anything | ![alt text](./doc/login.png) |

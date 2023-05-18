@@ -4,7 +4,7 @@ In this demo I log in using Admin role/CEO so I can do anything that normal user
 | Feature  | Description | Preview |
 | ------------- | ------------- |------------- |
 | Sign up | Users need to Sign up to create an account | ![alt text](./doc/signup.png) |
-| Log in | I log in using Admin role or CEO so i can do anything | ![alt text](./doc/log in.png) |
+| Log in | I log in using Admin role or CEO so i can do anything | ![alt text](./doc/login.png) |
 | Dashboard | After log in Users can see all the information about their ticket | ![alt text](./doc/dashboard.png) |
 | Profile | Users can update their profile and upload their photo profile | ![alt text](./doc/profile.png) |
 | Table Employee | Admin and other users can see all the employee in Table Employee but only Admin can make changes to it | ![alt text](./doc/view-employee.png) |

@@ -1,6 +1,6 @@
 # Ticketing Web Application
 
-I have created a web-based ticketing application using PHP and Bootstrap. As the creator of this app, I aimed to provide users with a convenient way to manage their tickets and request issue resolutions. Users can sign up for an account and create tickets to report problems. They also have the option to cancel or delete their tickets if needed. Once a ticket is marked as resolved or canceled, users cannot update its details. However, they can still view the ticket status and any feedback provided by admins or IT staff. By implementing these features, I aimed to streamline the ticketing process
+I have created a web-based ticketing application using PHP and Bootstrap. As the creator of this app, I aimed to provide users with a convenient way to manage their tickets and request issue resolutions. Users can sign up for an account and create tickets to report problems. They also have the option to cancel or edit their tickets if needed. Once a ticket is marked as resolved or canceled, users cannot update its details. However, they can still view the ticket status and any feedback provided by admins or IT staff. By implementing these features, I aimed to streamline the ticketing process
 
 # Video Demo Ticketing Web Application :
 

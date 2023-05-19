@@ -16,7 +16,7 @@ I have created a web-based ticketing application using PHP and Bootstrap. As the
 | Profile | Users can update their profile and upload their photo profile | ![alt text](./doc/profile.png) |
 | Table Employee | Super Admin and other users can see all the employee in Table Employee but only Super Admin can make changes to it | ![alt text](./doc/view-employee.png) |
 | Detail Employee | Super Admin and other users can see the detail of the Employee but only Super Admin/CEO can edit and delete the Employee | ![alt text](./doc/detail-employee.png) |
-| Edit Employee | Super Admin/CEO can edit users or promote users to become an IT Employee or CEO | ![alt text](./doc/edit-profile-by-ceo.png) |
+| Edit Employee | Super Admin/CEO can edit users or promote users to become an IT Employee or CEO | ![alt text](./doc/edit-user-by-ceo.png) |
 | Delete Employee | Super Admin/CEO can delete users | ![alt text](./doc/delete-employee.png) |
 | Create Ticket | Users can create a ticket/report a problem and wait to be solved by CEO/IT Employee | ![alt text](./doc/report-prob.png) |
 | Table Ticket | Super Admin and other users can see al the ticket in Table Ticket but only Super Admin/CEO or Admin/IT Employee can solved the ticket and give a feedback on the ticket | ![alt text](./doc/all-ticket.png) |
